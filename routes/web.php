@@ -18,4 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/pokemons', [PokemonController::class, 'index']);
+Route::resource('pokemons', PokemonController::class)->only(['index','show']);
+
+// Route::resource('pokemons', 'PokemonController')->only(['index', 'show']);
+
+// Route::get('/pokemons/{id}', [PokemonController::class, 'show']);
+
+
+
