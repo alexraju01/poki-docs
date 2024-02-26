@@ -4,32 +4,27 @@ namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+
 
 class PokemonController extends Controller
 {
 
-    private function fetchPokemonData($name)
+    private function fetchPokemonData($id)
     {
         $client = new Client();
-        $response = $client->get(env('POKEMON_API_URL') . '/pokemon/' . $name);
+        $response = $client->get(env('POKEMON_API_URL') . '/pokemon/' . $id);
         return json_decode($response->getBody(), true);
-
     }
-
 
     private function fetchPokemons($limit) {
         $client = new Client();
         $response = $client->get(env('POKEMON_API_URL') . '/pokemon?limit=' . $limit);
         $pokemons = json_decode($response->getBody(), true)['results'];
-        
-        // dd($pokemons);
+
         foreach ($pokemons as &$pokemon) {
             $pokemonResponse = $client->get($pokemon['url']);
             $pokemonDetails = json_decode($pokemonResponse->getBody(), true);
-            // dd($pokemonDetails);
-            // dd($pokemonDetails);
-            // pokemon image and type
+          
             $pokemon['sprite'] = $pokemonDetails['sprites']['front_default'];
             $pokemon['type'] = $pokemonDetails['types'][0]['type']['name'];
             $pokemon['id'] = $pokemonDetails['id'];
@@ -72,9 +67,10 @@ class PokemonController extends Controller
         $pokemonInfo = $this->fetchPokemonData($id);
         $pokemon = [
             'id' => $pokemonInfo['id'],
-            
             'sprite' => $pokemonInfo['sprites']['other']['official-artwork']['front_default'],
-            'stats' => $pokemonInfo['stats']
+            'type' =>  $pokemonInfo['types'][0]['type']['name'],
+            'stats' => $pokemonInfo['stats'],
+            
         ];
 
         return view('pokemons.show', compact('pokemonInfo', 'pokemon'));
