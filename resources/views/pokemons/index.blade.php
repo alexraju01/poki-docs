@@ -55,8 +55,9 @@
     <h1>Pokemon List</h1>
    
     @foreach($pokemons as $pokemon)
-        <a href="{{ route('pokemons.show', ['pokemon' => $pokemon['name']]) }}">
+        <a href="{{ route('pokemons.show', ['pokemon' => $pokemon['id']]) }}">
             <div class="card {{ $pokemon['type'] }}">
+                <p>{{$pokemon['id']}}</p>
                 <img src="{{ $pokemon['sprite'] }}" alt="{{ ucfirst($pokemon['name']) }}">
                 <p>{{ ucfirst($pokemon['name'])}}</p>
             </div>

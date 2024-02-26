@@ -69,12 +69,14 @@
         }
 
         .banner {
-        
+            display: flex;
+            justify-content: space-between;
+            width: 40rem;
+            
         }
 
-        .banner h1 {
-        /* font-family: "Mooli", cursive; */
-        font-size: 13rem;
+        .banner h1, .id {
+        font-size: 5rem;
         color: black;
         text-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3);
         }
@@ -104,6 +106,7 @@
     <div class="pokemon">
         <div class="banner">
             <h1>{{ ucfirst($pokemonInfo['name']) }}</h1>
+            <span class='id'> #{{$pokemon['id']}}</span>
         </div>
 
         <div class="stats">
