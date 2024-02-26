@@ -6,6 +6,14 @@
     <title>Pokemon</title>
 
     <style>
+        * { 
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            outline: none;
+            font-family: "Gill Sans", "Gill Sans MT";
+        }
         .card {
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -50,7 +58,7 @@
         <a href="{{ route('pokemons.show', ['pokemon' => $pokemon['name']]) }}">
             <div class="card {{ $pokemon['type'] }}">
                 <img src="{{ $pokemon['sprite'] }}" alt="{{ ucfirst($pokemon['name']) }}">
-                <p>{{ ucfirst($pokemon['name']) }}</p>
+                <p>{{ ucfirst($pokemon['name'])}}</p>
             </div>
         </a>
     @endforeach

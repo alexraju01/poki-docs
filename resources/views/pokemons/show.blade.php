@@ -69,10 +69,7 @@
         }
 
         .banner {
-            position: absolute;
-            top: 18%;
-            left: 20%;
-            z-index: 4;
+        
         }
 
         .banner h1 {
@@ -82,30 +79,42 @@
         text-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3);
         }
 
+        .stats{
+            font-size: 5rem
+        }
+
+        .stat{
+            background-color: green;
+            width: 40rem;
+        }
+
 
     </style>
 </head>
 <body>
     <div class="container">
-        <nav>
+        {{-- <nav>
         <ul class='nav-items'>
             <li class='nav-item'><a class="nav-link" href="{{ route('pokemons.index') }}"></a>Home</li>
             <li class='nav-item'><a class="nav-link" href="#"></a>Dashboard</li>
             <li class='nav-item'><a class="nav-link" href=""></a></li>
         </ul>
-    </nav>
-    
-    <header>
+    </nav> --}}
+
+    <div class="pokemon">
         <div class="banner">
             <h1>{{ ucfirst($pokemonInfo['name']) }}</h1>
-            
-            <a href="#">
-              <button type="button">Join Today</button>
-            </a>
         </div>
-        
-    </header>
 
+        <div class="stats">
+                @foreach($pokemon['stats'] as $stat)
+                <div class="stat">
+                    <span>{{ $stat['stat']['name'] }}:</span>
+                    <span>{{ $stat['base_stat'] }}</span>
+                </div>
+                @endforeach
+        </div>
+    </div>
 
     </div>
 

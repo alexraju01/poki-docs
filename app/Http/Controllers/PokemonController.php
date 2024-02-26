@@ -21,14 +21,17 @@ class PokemonController extends Controller
         $client = new Client();
         $response = $client->get(env('POKEMON_API_URL') . '/pokemon?limit=' . $limit);
         $pokemons = json_decode($response->getBody(), true)['results'];
+        // dd($pokemons);
 
         foreach ($pokemons as &$pokemon) {
             $pokemonResponse = $client->get($pokemon['url']);
             $pokemonDetails = json_decode($pokemonResponse->getBody(), true);
-        // dd($pokemonDetails);
-            
+            // dd($pokemonDetails);
+            // pokemon image and type
             $pokemon['sprite'] = $pokemonDetails['sprites']['front_default'];
             $pokemon['type'] = $pokemonDetails['types'][0]['type']['name'];
+            $pokemon['stats'] = $pokemonDetails['stats'][1]['stat']['name'];
+
         }
         return $pokemons;
     }
@@ -38,9 +41,10 @@ class PokemonController extends Controller
      */
     public function index()
     {
-        $pokemons = $this->fetchPokemons(21);
+        $pokemons = $this->fetchPokemons(30);
         return view('pokemons.index', compact('pokemons'));
     }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -63,8 +67,12 @@ class PokemonController extends Controller
     public function show($name)
     {
         $pokemonInfo = $this->fetchPokemonData($name);
+        $pokemon = [
+            'sprite' => $pokemonInfo['sprites']['front_default'],
+            'stats' => $pokemonInfo['stats']
+        ];
 
-        return view('pokemons.show', compact('pokemonInfo'));
+        return view('pokemons.show', compact('pokemonInfo', 'pokemon'));
     }
     
 
