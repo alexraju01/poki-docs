@@ -67,7 +67,7 @@
             height: 100vh;
             position: relative;
         }
-
+/* 
         .banner {
             display: flex;
             justify-content: space-between;
@@ -90,6 +90,82 @@
             width: 40rem;
         }
 
+        .pokemon{
+            width: 100vh;
+        }
+        .content{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            background-color: brown
+        }
+
+        .poke-img{
+            width: 15rem;
+            background-color: black
+        } */
+        /* Style for the pokemon card container */
+.pokemon {
+    width: 100%;
+    padding: 10px;
+    margin: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the banner */
+.banner {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffcb05;
+    padding: 10px;
+    border-radius: 8px 8px 0 0;
+    flex-direction: 
+}
+
+.banner h1 {
+    font-size: 24px;
+    margin: 0;
+    color: #333;
+    align-self: flex-end;
+}
+
+.banner .id {
+    font-size: 16px;
+    color: #666;
+    align-self: flex-end;
+
+}
+
+/* Style for the content */
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+/* Style for the stats */
+.stats {
+    font-size: 3rem;
+    flex-grow: 1;
+}
+
+.stat {
+    margin-bottom: 5px;
+}
+
+.stat span:first-child {
+    font-weight: bold;
+}
+
+/* Style for the Pokemon image */
+.poke-img {
+    width: 20rem;
+    height: 20rem;
+}
+
+        
 
     </style>
 </head>
@@ -109,13 +185,17 @@
             <span class='id'> #{{$pokemon['id']}}</span>
         </div>
 
-        <div class="stats">
+        <div class="content">
+            <div class="stats">
                 @foreach($pokemon['stats'] as $stat)
                 <div class="stat">
                     <span>{{ $stat['stat']['name'] }}:</span>
                     <span>{{ $stat['base_stat'] }}</span>
                 </div>
                 @endforeach
+            </div>
+
+            <img class="poke-img" src="{{$pokemon['sprite']}}" alt="">
         </div>
     </div>
 

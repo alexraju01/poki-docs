@@ -72,7 +72,8 @@ class PokemonController extends Controller
         $pokemonInfo = $this->fetchPokemonData($id);
         $pokemon = [
             'id' => $pokemonInfo['id'],
-            'sprite' => $pokemonInfo['sprites']['front_default'],
+            
+            'sprite' => $pokemonInfo['sprites']['other']['official-artwork']['front_default'],
             'stats' => $pokemonInfo['stats']
         ];
 

@@ -24,9 +24,10 @@
             display: inline-block;
         }
         .card img {
-            width: 150px;
-            height: 150px;
+            scale: 1.3;
             margin-bottom: 10px;
+            image-rendering: pixelated;
+
         }
 
         /* poki types for colour */
