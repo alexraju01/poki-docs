@@ -23,7 +23,34 @@ class PokemonController extends Controller
 
     }
 
+    
+    // Fetching the specified pokemon's description from API
+    private function fetchPokemonDescription($id) {
+        $pokemonSpeciesData = $this->fetchPokemonSpecies($id);
+        $flavorTexts = array_filter(
+            $pokemonSpeciesData['flavor_text_entries'], function ($text) {
+                return $text['language']['name'] === 'en';
+        });
+        $flavorTexts = array_slice($flavorTexts, 0, 3);
+    
+        $paragraph = '';   // empty string to hold all the uniquetexts
+        $uniqueTexts = []; // Array to hold unique flavor texts
+    
+        foreach ($flavorTexts as $flavorText) {
+            // Clean up the text
+            $cleanText = str_replace(["\n", "\f", "\r"], " ", $flavorText['flavor_text']);
+    
+            // Check if the text is already added to prevent duplicates
+            if (!isset($uniqueTexts[$cleanText])) {
+                $paragraph .= $cleanText . ' ';
+                $uniqueTexts[$cleanText] = true; // Mark this text as added
+            }
+        }
+        return trim($paragraph);
+    }
+    
 
+    // Fetching specifiic number of pokemons from API
     private function fetchPokemons($limit) {
         $client = new Client();
         $response = $client->get(env('POKEMON_API_URL') . '/pokemon?limit=' . $limit);
@@ -32,12 +59,10 @@ class PokemonController extends Controller
         foreach ($pokemons as &$pokemon) {
             $pokemonResponse = $client->get($pokemon['url']);
             $pokemonDetails = json_decode($pokemonResponse->getBody(), true);
-          dd($pokemonDetails);
+
             $pokemon['sprite'] = $pokemonDetails['sprites']['front_default'];
             $pokemon['type'] = $pokemonDetails['types'][0]['type']['name'];
             $pokemon['id'] = $pokemonDetails['id'];
-
-
         }
         return $pokemons;
     }
@@ -47,7 +72,7 @@ class PokemonController extends Controller
      */
     public function index()
     {
-        $pokemons = $this->fetchPokemons(9);
+        $pokemons = $this->fetchPokemons(20);
         return view('pokemons.index', compact('pokemons'));
     }
 
@@ -74,21 +99,23 @@ class PokemonController extends Controller
     {
         $pokemonData = $this->fetchPokemonData($id);
 
-        $pokemonSpecies = $this->fetchPokemonSpecies($id);
-        // dd($pokemonSpecies);
-
-        $genus = collect($pokemonSpecies['genera'])->where('language.name', 'en')->first()['genus'];
-        
         // Looping through pokemon types
         $types = collect($pokemonData['types'])->pluck('type.name')->all();
 
+        
+        $pokemonSpecies = $this->fetchPokemonSpecies($id);
+        $genus = collect($pokemonSpecies['genera'])->where('language.name', 'en')->first()['genus'];
+        
+        $description = $this->fetchPokemonDescription($id);
+
         $pokemonInfo = [
-            'id' => $pokemonData['id'],
-            'name' => $pokemonData['name'],
-            'sprite' => $pokemonData['sprites']['other']['official-artwork']['front_default'],
+            'id' => $pokemonData['id'],                                                             // ID
+            'name' => $pokemonData['name'],                                                         // Name
+            'sprite' => $pokemonData['sprites']['other']['official-artwork']['front_default'],      // Image
             'types' =>  $types,
-            'stats' => $pokemonData['stats'],
-            'genus' => $genus, // Adding genus information
+            'stats' => $pokemonData['stats'],                                                       // Stats
+            'genus' => $genus,  
+            'description' => $description                                                                   // Genus Information e.g. seed pokemon
         ];
 
         return view('pokemons.show', compact('pokemonInfo'));
