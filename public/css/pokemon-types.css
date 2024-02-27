@@ -153,7 +153,7 @@
     filter: drop-shadow(0rem 0rem 1.2rem rgba(173, 216, 230, 0.6));
 }
 
-/* Create border classes for each type with corresponding colors */
+/* ============================ border classes for Pokemon Types ========================= */
 .border-bug {
     border-top: 0.4rem solid var(--bug-color);
 }
@@ -207,4 +207,96 @@
 }
 .border-water {
     border-top: 0.4rem solid var(--water-color);
+}
+
+/* =========================== Pokemon Button Types ===========================*/
+
+.button-bug {
+    border: 0.1rem solid #92b242;
+    color: #92b242;
+}
+
+.button-dark {
+    border: 0.1rem solid #5a526a;
+    color: #5a526a;
+}
+
+.button-dragon {
+    border: 0.1rem solid #6a68cf;
+    color: #6a68cf;
+}
+
+.button-electric {
+    border: 0.1rem solid #e2e242;
+    color: #e2e242;
+}
+
+.button-fairy {
+    border: 0.1rem solid #e242bc;
+    color: #e242bc;
+}
+
+.button-fighting {
+    border: 0.1rem solid #e27242;
+    color: #e27242;
+}
+
+.button-fire {
+    border: 0.1rem solid #e24242;
+    color: #e24242;
+}
+
+.button-flying {
+    border: 0.1rem solid #9090e2;
+    color: #9090e2;
+}
+
+.button-ghost {
+    border: 0.1rem solid #6768cf;
+    color: #6768cf;
+}
+
+.button-grass {
+    border: 0.1rem solid #2e9868;
+    color: #2e9868;
+}
+
+.button-ground {
+    border: 0.1rem solid #d2a758;
+    color: #d2a758;
+}
+
+.button-ice {
+    border: 0.1rem solid #68cfcf;
+    color: #68cfcf;
+}
+
+.button-normal {
+    border: 0.1rem solid #a8a68a;
+    color: #a8a68a;
+}
+
+.button-poison {
+    border: 0.1rem solid #9c50b7;
+    color: #9c50b7;
+}
+
+.button-psychic {
+    border: 0.1rem solid #e24292;
+    color: #e24292;
+}
+
+.button-rock {
+    border: 0.1rem solid #a8a258;
+    color: #a8a258;
+}
+
+.button-steel {
+    border: 0.1rem solid #a8aacb;
+    color: #a8aacb;
+}
+
+.button-water {
+    border: 0.1rem solid #4a90e2;
+    color: #4a90e2;
 }

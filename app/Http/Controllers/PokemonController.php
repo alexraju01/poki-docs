@@ -16,6 +16,14 @@ class PokemonController extends Controller
         return json_decode($response->getBody(), true);
     }
 
+    private function fetchPokemonSpecies($id) {
+        $client = new Client();
+        $repsonse = $client->get(env('POKEMON_API_URL'). '/pokemon-species/' . $id);
+        return json_decode($repsonse->getBody(), true);
+
+    }
+
+
     private function fetchPokemons($limit) {
         $client = new Client();
         $response = $client->get(env('POKEMON_API_URL') . '/pokemon?limit=' . $limit);
@@ -24,7 +32,7 @@ class PokemonController extends Controller
         foreach ($pokemons as &$pokemon) {
             $pokemonResponse = $client->get($pokemon['url']);
             $pokemonDetails = json_decode($pokemonResponse->getBody(), true);
-          
+          dd($pokemonDetails);
             $pokemon['sprite'] = $pokemonDetails['sprites']['front_default'];
             $pokemon['type'] = $pokemonDetails['types'][0]['type']['name'];
             $pokemon['id'] = $pokemonDetails['id'];
@@ -64,16 +72,26 @@ class PokemonController extends Controller
      */
     public function show($id)
     {
-        $pokemonInfo = $this->fetchPokemonData($id);
-        $pokemon = [
-            'id' => $pokemonInfo['id'],
-            'sprite' => $pokemonInfo['sprites']['other']['official-artwork']['front_default'],
-            'type' =>  $pokemonInfo['types'][0]['type']['name'],
-            'stats' => $pokemonInfo['stats'],
-            
+        $pokemonData = $this->fetchPokemonData($id);
+
+        $pokemonSpecies = $this->fetchPokemonSpecies($id);
+        // dd($pokemonSpecies);
+
+        $genus = collect($pokemonSpecies['genera'])->where('language.name', 'en')->first()['genus'];
+        
+        // Looping through pokemon types
+        $types = collect($pokemonData['types'])->pluck('type.name')->all();
+
+        $pokemonInfo = [
+            'id' => $pokemonData['id'],
+            'name' => $pokemonData['name'],
+            'sprite' => $pokemonData['sprites']['other']['official-artwork']['front_default'],
+            'types' =>  $types,
+            'stats' => $pokemonData['stats'],
+            'genus' => $genus, // Adding genus information
         ];
 
-        return view('pokemons.show', compact('pokemonInfo', 'pokemon'));
+        return view('pokemons.show', compact('pokemonInfo'));
     }
     
 
