@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 <!DOCTYPE html>
@@ -11,6 +10,11 @@
     
 </head>
 <body>
+    <body>
+        <div id="preloader">
+          <div class="spinner"></div>   
+    </div>
+
     <h1>Pokemon List</h1>
    <div class="card-container">
        @foreach($pokemons as $pokemon)
@@ -24,14 +28,6 @@
     @endforeach
 </div>
 
-   
-    {{-- @foreach($pokemons as $pokemon)
-        <div class="card {{ $pokemon['type'] }}">
-
-                <img src="{{ $pokemon['sprite'] }}" alt="{{ ucfirst($pokemon['name']) }}">
-                <p>{{ ucfirst($pokemon['name']) }}</p>
-         
-        </div>
-    @endforeach --}}
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
