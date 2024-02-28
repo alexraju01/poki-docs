@@ -15,7 +15,7 @@
                 <span class="stat-num">{{ $stat['base_stat'] }}</span>
                 <div class="stat-bar">
                     <div class="stat-fill" 
-                         style="width: {{ $stat['base_stat'] }}%; background-color: {{ $stat['background_color'] }};">
+                         style="width: {{ $stat['percentage'] }}%; background-color: {{ $stat['background_color'] }};">
                     </div>
                 </div>
             </div>

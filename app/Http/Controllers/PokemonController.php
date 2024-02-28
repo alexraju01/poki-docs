@@ -49,6 +49,27 @@ class PokemonController extends Controller
         return trim($paragraph);
     }
     
+// ============================== Logics Of Stat Bars =============================
+    private function calculateStatPercentage($baseStat, $maxStatValue = 255) {
+        return ($baseStat / $maxStatValue) * 100;
+    }
+    
+    private function determineBackgroundColor($statName) {
+        return in_array($statName, ['special-attack', 'special-defense']) ? '#2fb487' : '#c9c7c8';
+    }
+    
+    private function percentageStatsBarWithColor($stats) {
+        return collect($stats)->map(function ($stat) {
+            $backgroundColor = $this->determineBackgroundColor($stat['stat']['name']);
+            $statPercentage = $this->calculateStatPercentage($stat['base_stat']);
+            
+            return array_merge($stat, [
+                'background_color' => $backgroundColor,
+                'percentage' => $statPercentage,
+            ]);
+        })->all(); // Convert back to array 
+    }
+    
 
     // Fetching specifiic number of pokemons from API
     private function fetchPokemons($limit) {
@@ -100,23 +121,18 @@ class PokemonController extends Controller
         $pokemonData = $this->fetchPokemonData($id);
 
         // Looping through pokemon types
-        $types = collect($pokemonData['types'])->pluck('type.name')->all();
-
+        $types = collect($pokemonData['types'])
+            ->pluck('type.name')
+            ->all();
         
         $pokemonSpecies = $this->fetchPokemonSpecies($id);
-        $genus = collect($pokemonSpecies['genera'])->where('language.name', 'en')->first()['genus'];
+        $genus = collect($pokemonSpecies['genera'])
+            ->firstWhere('language.name', 'en')['genus'];
         
         $description = $this->fetchPokemonDescription($id);
 
-        $statsWithColor = array_map(function ($stat) {
-            $backgroundColor = '#c9c7c8'; // Default color
-            if (in_array($stat['stat']['name'], ['special-attack', 'special-defense'])) {
-                $backgroundColor = '#2fb487'; // Green for Special Attack and Defense
-            }
-            $stat['background_color'] = $backgroundColor;
-            return $stat;
-        }, $pokemonData['stats']);
-
+        $statsWithColor = $this->percentageStatsBarWithColor($pokemonData['stats']);
+        // dd($statsWithColor);
 
         $pokemonInfo = [
             'id' => $pokemonData['id'],                                                             // ID
