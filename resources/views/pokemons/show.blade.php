@@ -6,6 +6,7 @@
         <div class="poke-id">
             <p>#{{ $pokemonInfo['id'] }}</p>
         </div>
+        <img class="poke-bg-img" src="{{ asset('images/pokedex.svg') }}" alt="">
         <img
             class="poke-backdrop-{{ $pokemonInfo['types'][0] }}"
             src="{{ $pokemonInfo['sprite'] }}"

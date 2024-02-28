@@ -72,7 +72,7 @@ class PokemonController extends Controller
      */
     public function index()
     {
-        $pokemons = $this->fetchPokemons(20);
+        $pokemons = $this->fetchPokemons(0);
         return view('pokemons.index', compact('pokemons'));
     }
 
@@ -108,12 +108,23 @@ class PokemonController extends Controller
         
         $description = $this->fetchPokemonDescription($id);
 
+        $statsWithColor = array_map(function ($stat) {
+            $backgroundColor = '#c9c7c8'; // Default color
+            if (in_array($stat['stat']['name'], ['special-attack', 'special-defense'])) {
+                $backgroundColor = '#2fb487'; // Green for Special Attack and Defense
+            }
+            $stat['background_color'] = $backgroundColor;
+            return $stat;
+        }, $pokemonData['stats']);
+
+
         $pokemonInfo = [
             'id' => $pokemonData['id'],                                                             // ID
             'name' => $pokemonData['name'],                                                         // Name
             'sprite' => $pokemonData['sprites']['other']['official-artwork']['front_default'],      // Image
             'types' =>  $types,
-            'stats' => $pokemonData['stats'],                                                       // Stats
+            'stats' => $statsWithColor,
+            // 'stats' => $pokemonData['stats'],                                                       // Stats
             'genus' => $genus,  
             'description' => $description                                                                   // Genus Information e.g. seed pokemon
         ];

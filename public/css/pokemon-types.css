@@ -300,3 +300,90 @@
     border: 0.1rem solid #4a90e2;
     color: #4a90e2;
 }
+
+/* =================== Active tab indicater ==================*/
+
+/* .tab-button::after {
+    content: "";
+    position: absolute;
+    display: block;
+    left: 50%;
+    width: 1%;
+    padding: 0.15rem 1rem;
+    margin: 0.1rem;
+    border-radius: 1rem;
+    z-index: 10;
+    transform: translateX(-50%);
+} */
+
+/* .tab-button.bug::after {
+    background-color: var(--bug-color);
+}
+
+.tab-button.dark::after {
+    background-color: var(--dark-color);
+}
+
+.tab-button.dragon::after {
+    background-color: var(--dragon-color);
+}
+
+.tab-button.electric::after {
+    background-color: var(--electric-color);
+}
+
+.tab-button.fairy::after {
+    background-color: var(--fairy-color);
+}
+
+.tab-button.fighting::after {
+    background-color: var(--fighting-color);
+}
+
+.tab-button.fire::after {
+    background-color: var(--fire-color);
+}
+
+.tab-button.flying::after {
+    background-color: var(--flying-color);
+}
+
+.tab-button.ghost::after {
+    background-color: var(--ghost-color);
+}
+
+.tab-button.grass::after {
+    background-color: var(--grass-color);
+}
+
+.tab-button.ground::after {
+    background-color: var(--ground-color);
+}
+
+.tab-button.ice::after {
+    background-color: var(--ice-color);
+}
+
+.tab-button.normal::after {
+    background-color: var(--normal-color);
+}
+
+.tab-button.poison::after {
+    background-color: var(--poison-color);
+}
+
+.tab-button.psychic::after {
+    background-color: var(--psychic-color);
+}
+
+.tab-button.rock::after {
+    background-color: var(--rock-color);
+}
+
+.tab-button.steel::after {
+    background-color: var(--steel-color);
+}
+
+.tab-button.water::after {
+    background-color: var(--water-color);
+} */

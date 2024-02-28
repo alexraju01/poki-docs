@@ -5,7 +5,7 @@
     text-decoration: none;
     outline: none;
     border: none;
-    font-family: "Gill Sans", "Gill Sans MT";
+    font-family: "Nunito", sans-serif;
 }
 
 html {
@@ -19,9 +19,10 @@ body {
 
 .card-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
     gap: 1rem;
     padding: 1rem;
+    font-size: 2rem;
 }
 .card {
     border-radius: 5px;
@@ -29,6 +30,8 @@ body {
     width: 100%;
     text-align: center;
     display: inline-block;
+    color: black;
+    font-weight: 600;
 }
 
 .card img {
@@ -52,12 +55,24 @@ body {
 
 /* +++++++++++++++++ Pokemon Image Styles  ++++++++++++++*/
 .poke-img {
-    font-size: 3rem;
     position: relative;
+    font-size: 3rem;
     display: flex; /* Add this */
     justify-content: center; /* Add this */
     align-items: center; /* Add this */
     flex-direction: column;
+}
+
+.poke-bg-img {
+    opacity: 0.4;
+    display: flex;
+    position: absolute;
+    width: 25rem;
+    justify-content: center;
+    /* align-items: center; */
+    top: 43%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .poke-img .poke-name {
@@ -97,7 +112,7 @@ body {
 .tab-button {
     background-color: transparent;
     position: relative;
-    color: #cbcccc;
+    color: #636468;
     font-weight: 600;
     cursor: pointer;
     padding: 14px 16px;
@@ -125,10 +140,9 @@ body {
     padding: 0.15rem 1rem;
     margin: 0.1rem;
     border-radius: 1rem;
-    background-color: white;
     z-index: 10;
     transform: translateX(-50%);
-    /* border-bottom: 0.4rem white solid; */
+    background-color: #ffffff;
 }
 
 .tab-content {
@@ -140,32 +154,31 @@ body {
     display: block;
 }
 
-#About {
+.tab-content .desc {
+    line-height: 2.5rem;
     font-size: 1.5rem;
-    color: #cbcccc;
-    line-height: 1.6rem;
-    padding: 1rem;
+    color: #1a9292;
 }
 
 /* ================== Stats Styles  =====================*/
 .stats {
     background-color: #141414;
-    margin-top: 20px;
+    margin-top: 1rem;
     font-size: 1.6rem;
-    color: #cbcccc;
 }
 
 .stats .stat {
     display: flex;
     align-items: center;
-    margin: 10px 0;
+    margin: 0.2rem 0;
     background-color: transparent;
 }
 
 .stats .stat-label {
     flex: 1;
     padding: 1rem;
-    color: white;
+    color: #636468;
+
     text-align: left;
 }
 
@@ -185,8 +198,6 @@ body {
 }
 
 .stats .stat-fill {
-    background-color: #2fb487;
-    /* background-color: #c9c7c8;  */
     height: 100%;
     transition: width 0.5s ease-in-out;
     border-radius: 1rem;
