@@ -22,7 +22,7 @@
     </div>
 
     <!-- Tabs for additional details about the Pokemon -->
-    <div class="pokemon-tabs">
+    <div class="poke-tabs">
         @include('partials.pokemonTabs', ['pokemon' => $pokemonInfo])
     </div>
 </div>

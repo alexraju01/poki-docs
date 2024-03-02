@@ -139,8 +139,7 @@ class PokemonController extends Controller
             'name' => $pokemonData['name'],                                                         // Name
             'sprite' => $pokemonData['sprites']['other']['official-artwork']['front_default'],      // Image
             'types' =>  $types,
-            'stats' => $statsWithColor,
-            // 'stats' => $pokemonData['stats'],                                                       // Stats
+            'stats' => $statsWithColor,                                                             // Stats array format primary and secondary attrubute type
             'genus' => $genus,  
             'description' => $description                                                                   // Genus Information e.g. seed pokemon
         ];

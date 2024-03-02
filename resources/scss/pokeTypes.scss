@@ -17,13 +17,10 @@ $colors: (
     rock: #a8a258,
     steel: #a8aacb,
     water: #4a90e2,
+    active-tab-color: #ffffff,
 );
 
 @each $type, $color in $colors {
-    // .#{"color-" + $type} {
-    //     color: $color;
-    // }
-
     .#{$type} {
         background-color: $color;
     }
@@ -40,4 +37,18 @@ $colors: (
     .poke-backdrop-#{$type} {
         filter: drop-shadow(0rem 0rem 1.2rem rgba($color, 0.6));
     }
+}
+
+.tab-button.active::after {
+    content: "";
+    position: absolute;
+    display: block;
+    left: 50%;
+    width: 1%;
+    padding: 0.15rem 1rem;
+    margin: 0.1rem;
+    border-radius: 1rem;
+    z-index: 10;
+    transform: translateX(-50%);
+    background-color: var(--active-tab-color); /* Use the CSS variable */
 }

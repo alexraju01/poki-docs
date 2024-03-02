@@ -1,8 +1,8 @@
 <div class="tab-section">
 
-    <div class="tabs">
-        <button class="tab-button active" onclick="openTab(event, 'Stats')">Stats</button>
-        <button class="tab-button " onclick="openTab(event, 'About')">About</button>
+    <div class="tabs">  
+        <button class="tab-button active" data-color="#2e9868" onclick="openTab(event, 'Stats')">Stats</button>
+        <button class="tab-button" data-color="{{$pokemonInfo['types'][0]}}" onclick="openTab(event, 'About')">About</button>
     </div>
     
 

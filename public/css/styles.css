@@ -50,7 +50,6 @@ body {
     max-width: 100%;
     margin: 2rem auto;
     border-radius: 10px;
-    padding: 2rem;
 }
 
 /* +++++++++++++++++ Pokemon Image Styles  ++++++++++++++*/
@@ -102,11 +101,21 @@ body {
 }
 
 /* =================================== */
-.tabs {
+
+.poke-tabs {
+    padding: 0;
+    margin: 0;
+}
+
+.tab-section {
+    /* background-color: pink; */
+    display: flex;
     overflow: hidden;
     color: #a19fa0;
-
-    /* ... */
+    font-size: 3rem;
+    justify-content: center; /* Add this */
+    align-items: center; /* Add this */
+    flex-direction: column;
 }
 
 .tab-button {
@@ -131,7 +140,7 @@ body {
     scale: 1.1;
 }
 
-.tab-button.active::after {
+/* .tab-button.active::after {
     content: "";
     position: absolute;
     display: block;
@@ -143,11 +152,11 @@ body {
     z-index: 10;
     transform: translateX(-50%);
     background-color: #ffffff;
-}
+} */
 
 .tab-content {
     display: none;
-    padding: 1rem 2rem;
+    padding: 1rem 0.5rem;
 }
 
 .tab-content.show {
@@ -157,14 +166,24 @@ body {
 .tab-content .desc {
     line-height: 2.5rem;
     font-size: 1.5rem;
-    color: #1a9292;
+    /* color: #1a9292; */
 }
 
 /* ================== Stats Styles  =====================*/
+/*  */
+#Stats {
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+}
+
 .stats {
-    background-color: #141414;
+    display: flex;
+    flex-direction: column;
     margin-top: 1rem;
     font-size: 1.6rem;
+    max-width: 100%;
 }
 
 .stats .stat {
@@ -177,9 +196,9 @@ body {
 .stats .stat-label {
     flex: 1;
     padding: 1rem;
-    color: #636468;
 
-    text-align: left;
+    color: #636468;
+    text-align: center;
 }
 
 .stats .stat-num {
@@ -191,9 +210,9 @@ body {
 
 .stats .stat-bar {
     flex: 3;
-    background-color: #434949; /* Slightly lighter dark background for the bar */
-    margin: 0 10px; /* Margin on the sides */
-    height: 1rem; /* Height of the bar */
+    background-color: #434949;
+    margin: 0 10px;
+    height: 1rem;
     border-radius: 1rem;
 }
 
@@ -205,58 +224,33 @@ body {
 
 /* Responsive Styles */
 @media screen and (min-width: 768px) {
-    .poke-img {
-        padding: 40px;
-    }
-    .poke-desc,
-    .stats {
-        padding: 40px;
-    }
-    .stats .stat .name {
-        font-size: 16px;
+    #Stats {
+        min-width: 68rem;
     }
 }
 
 @media (min-width: 1024px) {
     .pokemon {
         display: flex;
-        place-items: center;
-        height: 100vh;
+        flex-direction: row-reverse;
         width: 100%;
+        background-color: #1a9292;
     }
 
     .poke-img {
-        padding: 1rem;
-        order: 2;
+        width: 60%;
+        background-color: blue;
+        margin-right: auto;
+    }
+
+    .poke-tabs {
         width: 40%;
+        padding: 10rem;
     }
 
-    .poke-img img {
-        display: block;
-        max-width: 100%;
-        height: auto;
-        border-radius: 5px;
-    }
-
-    /* Stats Styles */
-    .stats {
-        order: 1;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        background-color: aqua;
-        width: 30%;
-    }
-
-    .stats span {
-        margin: 5px 0;
-        background-color: pink;
-    }
-
-    /* Description Styles */
-    .poke-desc {
-        margin-top: 20px;
-        order: 3;
-        width: 30%;
+    .tabs {
+        display: none;
+        overflow: hidden;
+        color: #a19fa0;
     }
 }
