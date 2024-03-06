@@ -74,18 +74,19 @@ class PokemonController extends Controller
     // Fetching specifiic number of pokemons from API
     private function fetchPokemons($limit) {
         $client = new Client();
-        $response = $client->get(env('POKEMON_API_URL') . '/pokemon?limit=' . $limit);
-        $pokemons = json_decode($response->getBody(), true)['results'];
+        $response = $client->get('https://pokeapi.co/api/v2/pokemon?limit=' . $limit);
+        $data = json_decode($response->getBody(), true)['results'];
+        // dd($data);
+        foreach ($data as &$pokemon) {
+            // dd($pokemon['name']);
+            $pokemonUrl = $pokemon['url'];
+            $pokemonId = explode('/', $pokemonUrl)[6];
 
-        foreach ($pokemons as &$pokemon) {
-            $pokemonResponse = $client->get($pokemon['url']);
-            $pokemonDetails = json_decode($pokemonResponse->getBody(), true);
-
-            $pokemon['sprite'] = $pokemonDetails['sprites']['front_default'];
-            $pokemon['type'] = $pokemonDetails['types'][0]['type']['name'];
-            $pokemon['id'] = $pokemonDetails['id'];
+            $pokemon['id'] = $pokemonId;
+            // $pokemon['name'] = $pokemon['name'];
+            $pokemon['sprite'] = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{$pokemonId}.png";
         }
-        return $pokemons;
+        return $data;
     }
 
     /**
@@ -93,7 +94,7 @@ class PokemonController extends Controller
      */
     public function index()
     {
-        $pokemons = $this->fetchPokemons(15);
+        $pokemons = $this->fetchPokemons(25);
         return view('pokemons.index', compact('pokemons'));
     }
 

@@ -39,16 +39,16 @@ $colors: (
     }
 }
 
-.tab-button.active::after {
-    content: "";
-    position: absolute;
-    display: block;
-    left: 50%;
-    width: 1%;
-    padding: 0.15rem 1rem;
-    margin: 0.1rem;
-    border-radius: 1rem;
-    z-index: 10;
-    transform: translateX(-50%);
-    background-color: var(--active-tab-color); /* Use the CSS variable */
-}
+// .tab-button.active::after {
+//     content: "";
+//     position: absolute;
+//     display: block;
+//     left: 50%;
+//     width: 1%;
+//     padding: 0.15rem 1rem;
+//     margin: 0.1rem;
+//     border-radius: 1rem;
+//     z-index: 10;
+//     transform: translateX(-50%);
+//     background-color: var(--active-tab-color); /* Use the CSS variable */
+// }
