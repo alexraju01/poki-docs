@@ -14,29 +14,36 @@ html {
 }
 
 body {
-    background-color: #141414;
+    background-color: #17171d;
 }
 
 .card-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
-    gap: 1rem;
-    padding: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1.3rem;
+    padding: 1.3rem;
     font-size: 2rem;
 }
+
 .card {
+    background-color: #282828;
     border-radius: 5px;
-    padding: 1rem;
+    padding: 1.5rem;
     width: 100%;
     text-align: center;
     display: inline-block;
-    color: black;
+    color: white;
     font-weight: 600;
+    transition: all 0.3s;
+}
+
+.card:hover {
+    scale: 1.1;
 }
 
 .card img {
     display: block;
-    width: 60%;
+    width: 50%;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 1rem;
@@ -47,54 +54,62 @@ body {
 /* ========================================= */
 
 .pokemon {
-    max-width: 100%;
-    margin: 2rem auto;
-    border-radius: 10px;
+    padding-top: 3rem;
+}
+
+.poke-id {
+    padding: 1rem 0;
 }
 
 /* +++++++++++++++++ Pokemon Image Styles  ++++++++++++++*/
-.poke-img {
+.poke-profile {
     position: relative;
     font-size: 3rem;
-    display: flex; /* Add this */
-    justify-content: center; /* Add this */
-    align-items: center; /* Add this */
-    flex-direction: column;
-}
-
-.poke-bg-img {
-    opacity: 0.4;
     display: flex;
-    position: absolute;
-    width: 25rem;
     justify-content: center;
-    /* align-items: center; */
-    top: 43%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    align-items: center;
+    flex-direction: column;
+    min-height: 100%;
 }
 
-.poke-img .poke-name {
+.img-container {
+    position: relative;
+    height: 30rem;
+    width: 30rem;
+}
+
+.img-container img {
+    height: 28rem;
+}
+
+.img-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: url("/images/pokedex.svg");
+    background-size: cover;
+    opacity: 0.25;
+    transform: rotate(10deg);
+}
+
+/* Styling the pokemon name */
+.poke-profile .poke-name {
     font-weight: bolder;
     font-size: 3.2rem;
 }
 
-.poke-img .poke-genus {
+/* Styling the pokemon species */
+.poke-profile .poke-genus {
     font-size: 1.8rem;
-    margin: 0.5rem;
+    margin: 0.5rem 0;
 }
 
-.poke-img img {
-    display: block;
-    max-width: 90%;
-    height: 30rem;
-    /* border-radius: 5px; */
-}
 /* +++++++++++++++++ Pokemone Types ++++++++++++++++  */
 .poke-types button {
-    padding: 0.6rem 2rem;
+    padding: 0.5rem 2rem;
     margin: 0.5rem;
-    border-radius: 2.5rem;
+    border-radius: 2rem;
     cursor: pointer;
     background: transparent;
     font-size: 1.6rem;
@@ -102,29 +117,22 @@ body {
 
 /* =================================== */
 
-.poke-tabs {
-    padding: 0;
-    margin: 0;
-}
-
 .tab-section {
-    /* background-color: pink; */
     display: flex;
-    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
     color: #a19fa0;
     font-size: 3rem;
-    justify-content: center; /* Add this */
-    align-items: center; /* Add this */
-    flex-direction: column;
 }
 
 .tab-button {
     background-color: transparent;
-    position: relative;
+    /* position: relative; */
     color: #636468;
     font-weight: 600;
     cursor: pointer;
-    padding: 14px 16px;
+    padding: 0 1.4rem;
+    margin: 1.5rem 0 0 0;
     transition: 0.3s;
     font-size: 17px;
     transition: all 0.2s;
@@ -132,7 +140,7 @@ body {
 
 .tab-button:hover {
     color: #ffffff;
-    scale: 1.2;
+    scale: 1.1;
 }
 
 .tab-button.active {
@@ -147,110 +155,104 @@ body {
     left: 50%;
     width: 1%;
     padding: 0.15rem 1rem;
-    margin: 0.1rem;
+    margin: 0.1rem 0 0 0;
     border-radius: 1rem;
-    z-index: 10;
+    z-index: 1;
     transform: translateX(-50%);
     background-color: #ffffff;
 }
 
-.tab-content {
-    /* width: 100%; */
-    /* display: none; */
-    padding: 1rem 0.5rem;
-}
-
-.tab-content.show {
-    /* display: block; */
-}
-
-.tab-content .desc {
-    line-height: 2.5rem;
-    font-size: 1.5rem;
-    /* color: #1a9292; */
-}
-
 /* ================== Stats Styles  =====================*/
 /*  */
-#Stats {
+.stats-container {
     min-width: 100vw;
-    display: flex;
-    flex-direction: column;
     padding: 0 1rem;
-}
-
-.stats {
     display: flex;
     flex-direction: column;
     margin-top: 1rem;
     font-size: 1.6rem;
-    max-width: 100%;
 }
 
-.stats .stat {
+.stats-container .stat {
     display: flex;
     align-items: center;
-    margin: 0.2rem 0;
-    background-color: transparent;
 }
 
-.stats .stat-label {
+.stats-container .stat-label {
     flex: 1;
-    padding: 1rem;
-
     color: #636468;
     text-align: center;
 }
 
-.stats .stat-num {
+.stats-container .stat-num {
     padding: 10px;
     color: white;
     min-width: 5rem;
     font-weight: 600;
 }
 
-.stats .stat-bar {
+.stats-container .stat-bar {
     flex: 3;
     background-color: #434949;
-    margin: 0 10px;
     height: 1rem;
     border-radius: 1rem;
 }
 
-.stats .stat-fill {
+.stats-container .stat-fill {
     height: 100%;
     transition: width 0.5s ease-in-out;
     border-radius: 1rem;
 }
 
+/* Styling the about content tab */
+.about {
+    line-height: 2rem;
+    font-size: 1.5rem;
+    margin: 1.8rem 2rem;
+}
+
 /* Responsive Styles */
 @media screen and (min-width: 768px) {
-    #Stats {
+    .stats-container {
         min-width: 68rem;
     }
 }
 
 @media (min-width: 1024px) {
     .pokemon {
-        display: flex;
-        flex-direction: row-reverse;
-        width: 100%;
+        height: 100vh;
+        /* background-color: pink; */
     }
 
-    .poke-img {
-        width: 60%;
-        background-color: blue;
-        margin-right: auto;
+    .tab-section {
+        display: none;
+    }
+
+    /* .poke-sprite {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .poke-bg-img {
+        width: 100%;
+
+        background-color: blueviolet;
+    }
+
+    .poke-profile {
+        width: 100%;
+        display: flex;
     }
 
     .poke-tabs {
-        width: 40%;
-        padding: 10rem;
+        background-color: lightblue;
+        width: 100%;
     }
 
     .tabs {
         display: none;
         overflow: hidden;
         color: #a19fa0;
-    }
+    } */
 }

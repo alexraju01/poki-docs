@@ -2,16 +2,21 @@
 
 @section('content')
 <div class="pokemon">
-    <div class="poke-img">
+    <div class="poke-profile">
         <div class="poke-id">
             <p>#{{ $pokemonInfo['id'] }}</p>
         </div>
-        <img class="poke-bg-img" src="{{ asset('images/pokedex.svg') }}" alt="">
-        <img
-            class="poke-backdrop-{{ $pokemonInfo['types'][0] }}"
+        <div class="img-container">
+            <img
+            class="poke-sprite poke-backdrop-{{ $pokemonInfo['types'][0] }}"
             src="{{ $pokemonInfo['sprite'] }}"
             alt="Pokemon Image"
         />
+            {{-- <img class="poke-bg-img" src="{{ asset('images/pokedex.svg') }}" alt=""> --}}
+            
+        </div>
+        
+       
         <span class="poke-name">{{ ucfirst($pokemonInfo['name']) }}</span>
         <span class="poke-genus">{{ $pokemonInfo['genus'] }}</span>
         <div class="poke-types">

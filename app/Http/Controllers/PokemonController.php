@@ -14,6 +14,7 @@ class PokemonController extends Controller
         $client = new Client();
         $response = $client->get(env('POKEMON_API_URL') . '/pokemon/' . $id);
         return json_decode($response->getBody(), true);
+        
     }
 
     private function fetchPokemonSpecies($id) {
@@ -94,7 +95,7 @@ class PokemonController extends Controller
      */
     public function index()
     {
-        $pokemons = $this->fetchPokemons(25);
+        $pokemons = $this->fetchPokemons(100);
         return view('pokemons.index', compact('pokemons'));
     }
 
@@ -120,6 +121,7 @@ class PokemonController extends Controller
     public function show($id)
     {
         $pokemonData = $this->fetchPokemonData($id);
+        // dd($pokemonData);
 
         // Looping through pokemon types
         $types = collect($pokemonData['types'])
