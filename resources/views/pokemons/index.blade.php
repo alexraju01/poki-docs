@@ -10,11 +10,7 @@
     
 </head>
 <body>
-    <body>
-        <div id="preloader">
-          <div class="spinner"></div>   
-    </div>
-
+    
     <h1>Pokemon List</h1>
    <div class="card-container">
        @foreach($pokemons as $pokemon)
@@ -27,7 +23,6 @@
     </a>
     @endforeach
 </div>
-
-    <script src="{{ asset('js/app.js') }}"></script>
+    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
 </body>
 </html>

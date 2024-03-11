@@ -28,6 +28,17 @@
             <!-- About content -->
             <p class="desc">{{ $pokemonInfo['description'] }}</p>
         </div>
+
+        <div class="skils" class="tab-content" x-show="tab === 'skills'">
+            <!-- Skills content -->
+            @foreach($pokemonInfo['ability'] as $ability)
+                <div class="ability">{{ $ability}}</div>
+            @endforeach
+            @foreach($pokemonInfo['moves'] as $move)
+                <div class="ability">{{ $move['lvl_req']['level_learned_at']}}: {{$move['name']}}</div>
+            @endforeach
+
+        </div>
     </div>
 </div>
 

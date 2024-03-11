@@ -9,8 +9,7 @@ use Illuminate\Http\Request;
 class PokemonController extends Controller
 {
 
-    private function fetchPokemonData($id)
-    {
+    private function fetchPokemonData($id) {
         $client = new Client();
         $response = $client->get(env('POKEMON_API_URL') . '/pokemon/' . $id);
         return json_decode($response->getBody(), true);
@@ -71,8 +70,6 @@ class PokemonController extends Controller
         })->all(); // Convert back to array 
     }
     
-
-    // Fetching specifiic number of pokemons from API
     private function fetchPokemons($limit) {
         $client = new Client();
         $response = $client->get('https://pokeapi.co/api/v2/pokemon?limit=' . $limit);
@@ -95,7 +92,7 @@ class PokemonController extends Controller
      */
     public function index()
     {
-        $pokemons = $this->fetchPokemons(100);
+        $pokemons = $this->fetchPokemons(10000);
         return view('pokemons.index', compact('pokemons'));
     }
 
@@ -118,10 +115,93 @@ class PokemonController extends Controller
     /**
      * Display the specified resource.
      */
+
+     private function fetchPokemonAbilities($Abilities) {
+        return collect($Abilities)->pluck('ability.name')->all();
+     }
+
+     private function fetchPokemonMoves($moves)
+{
+    return collect($moves)
+        ->map(fn($move) => $this->prepareMove($move))
+        ->filter()
+        ->sortBy(fn($move) => $move['lvl_req']['level_learned_at'])
+        ->values();
+}
+
+private function prepareMove($move)
+{
+    $levelUpMove = $this->getFirstLevelUpMove($move['version_group_details']);
+
+    if (is_null($levelUpMove)) {
+        return null;
+    }
+
+    return [
+        'name' => $move['move']['name'],
+        'url' => $move['move']['url'],
+        'lvl_req' => $levelUpMove,
+    ];
+}
+
+private function getFirstLevelUpMove($versionGroupDetails)
+{
+    return collect($versionGroupDetails)
+        ->filter(fn($vgd) => $vgd['move_learn_method']['name'] == 'level-up')
+        ->map(fn($vgd) => $this->extractLevelLearnedAt($vgd))
+        ->sortBy('level_learned_at')
+        ->first();
+}
+
+private function extractLevelLearnedAt($vgd)
+{
+    return ['level_learned_at' => $vgd['level_learned_at']];
+}
+
+
+//      private function fetchPokemonMoves($moves) {
+//     $movesCollection = collect($moves)
+//         ->map(function ($move) {
+//             $levelUpMoves = collect($move['version_group_details'])
+//                 ->filter(function ($vgd) {
+//                     return $vgd['move_learn_method']['name'] == 'level-up';
+//                 })
+//                 ->map(function ($vgd) {
+//                     // Extract level learned at and version group name
+//                     return [
+//                         'level_learned_at' => $vgd['level_learned_at'],
+//                         // 'version_group_name' => $vgd['version_group']['name'],
+//                     ];
+//                 })
+//                 ->sortBy('level_learned_at') // Ensure lvl_req is sorted for each move
+//                 ->values() // Reset keys after sorting
+//                 ->first(); // Only keep the first value (lowest level)
+
+//             // Skip adding lvl_req if no level-up moves exist
+//             if (empty($levelUpMoves)) {
+//                 return null;
+//             }
+
+//             return [
+//                 'name' => $move['move']['name'],
+//                 'url' => $move['move']['url'],
+//                 'lvl_req' => $levelUpMoves,
+//             ];
+//         })
+//         ->filter() // Remove moves that ended up with null (no level-up moves)
+//         ->values(); // Re-index the collection after filtering
+
+//     // Uncomment the next line to dump the collection for debugging
+//     // dd($movesCollection);
+//         dd($movesCollection);
+//     return $movesCollection;
+// }
+
+
+
     public function show($id)
     {
         $pokemonData = $this->fetchPokemonData($id);
-        // dd($pokemonData);
 
         // Looping through pokemon types
         $types = collect($pokemonData['types'])
@@ -133,18 +213,20 @@ class PokemonController extends Controller
             ->firstWhere('language.name', 'en')['genus'];
         
         $description = $this->fetchPokemonDescription($id);
-
-        $statsWithColor = $this->percentageStatsBarWithColor($pokemonData['stats']);
-        // dd($statsWithColor);
+        $statsBarWithColor = $this->percentageStatsBarWithColor($pokemonData['stats']);
+        
 
         $pokemonInfo = [
             'id' => $pokemonData['id'],                                                             // ID
             'name' => $pokemonData['name'],                                                         // Name
             'sprite' => $pokemonData['sprites']['other']['official-artwork']['front_default'],      // Image
             'types' =>  $types,
-            'stats' => $statsWithColor,                                                             // Stats array format primary and secondary attrubute type
-            'genus' => $genus,  
-            'description' => $description                                                                   // Genus Information e.g. seed pokemon
+            'stats' => $statsBarWithColor,                                                          // Stats array format primary and secondary attrubute type
+            'genus' => $genus,                                                                      // Genus Information e.g. seed pokemon
+            'description' => $description,
+            'moves' => $this->fetchPokemonMoves($pokemonData['moves']),
+            'ability' => $this->fetchPokemonAbilities($pokemonData['abilities'])  
+            // dd(); 
         ];
 
         return view('pokemons.show', compact('pokemonInfo'));

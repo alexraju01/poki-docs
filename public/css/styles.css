@@ -211,6 +211,11 @@ body {
     margin: 1.8rem 2rem;
 }
 
+.ability {
+    background-color: pink;
+    margin: 1rem;
+}
+
 /* Responsive Styles */
 @media screen and (min-width: 768px) {
     .stats-container {

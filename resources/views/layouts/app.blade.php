@@ -11,14 +11,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <script src="//unpkg.com/alpinejs" defer></script>
     @vite("resources/scss/pokeTypes.scss")
-    
-
 </head>
-
+<body>
+    
 <div class="app">
     @yield('content')
 </div>
 
-@stack('scripts')
+
+</script>
 </body>
 </html>
