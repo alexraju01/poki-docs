@@ -115,37 +115,35 @@ class PokemonController extends Controller
     /**
      * Display the specified resource.
      */
-
+// ########################### Abilities #############################
      private function fetchPokemonAbilities($Abilities) {
         return collect($Abilities)->pluck('ability.name')->all();
      }
 
-     private function fetchPokemonMoves($moves)
-{
+// ########################### Moves #############################
+
+     private function fetchPokemonMoves($moves) {
     return collect($moves)
         ->map(fn($move) => $this->prepareMove($move))
         ->filter()
-        ->sortBy(fn($move) => $move['lvl_req']['level_learned_at'])
+        ->sortBy(fn($move) => $move['lvl_req'])
         ->values();
 }
 
-private function prepareMove($move)
-{
+private function prepareMove($move) {
     $levelUpMove = $this->getFirstLevelUpMove($move['version_group_details']);
-
     if (is_null($levelUpMove)) {
         return null;
     }
-
     return [
         'name' => $move['move']['name'],
         'url' => $move['move']['url'],
-        'lvl_req' => $levelUpMove,
+        'lvl_req' => $levelUpMove['level_learned_at'],
     ];
 }
 
-private function getFirstLevelUpMove($versionGroupDetails)
-{
+// ################# Repeated Items In The list, Only Returning One Item Back ##################
+private function getFirstLevelUpMove($versionGroupDetails) {
     return collect($versionGroupDetails)
         ->filter(fn($vgd) => $vgd['move_learn_method']['name'] == 'level-up')
         ->map(fn($vgd) => $this->extractLevelLearnedAt($vgd))

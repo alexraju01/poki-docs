@@ -35,7 +35,7 @@
                 <div class="ability">{{ $ability}}</div>
             @endforeach
             @foreach($pokemonInfo['moves'] as $move)
-                <div class="ability">{{ $move['lvl_req']['level_learned_at']}}: {{$move['name']}}</div>
+                <div class="ability">{{ $move['lvl_req']}}: {{$move['name']}}</div>
             @endforeach
 
         </div>
