@@ -37,6 +37,14 @@ $colors: (
     .poke-backdrop-#{$type} {
         filter: drop-shadow(0rem 0rem 1.2rem rgba($color, 0.6));
     }
+
+    .type-indicator-#{$type} {
+        background-color: $color;
+    }
+
+    .next-evolution-#{$type} {
+        border: 0.2rem solid $color;
+    }
 }
 
 // .tab-button.active::after {

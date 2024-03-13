@@ -72,6 +72,10 @@ body {
     min-height: 100%;
 }
 
+.name-section {
+    display: none;
+}
+
 .img-container {
     position: relative;
     height: 30rem;
@@ -221,12 +225,58 @@ body {
     .stats-container {
         min-width: 68rem;
     }
+
+    .name-section {
+        display: none;
+    }
 }
 
 @media (min-width: 1024px) {
     .pokemon {
         height: 100vh;
+        position: relative;
         /* background-color: pink; */
+    }
+
+    .name-section {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 10%;
+        left: 5%;
+        width: 30rem;
+        height: 10rem;
+        background-color: #25241b;
+        padding: 1rem;
+        font-size: 1.3rem;
+    }
+    .type-indicator {
+        position: absolute;
+        top: -0.1rem;
+        padding: 0.2rem 0;
+        width: 3rem;
+        border-radius: 0.2rem;
+    }
+
+    .d-poke-name {
+        text-transform: uppercase;
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        /* margin-top: 1rem; */
+    }
+
+    .name-section .poke-DTypes {
+        display: flex;
+    }
+
+    .next-evolution {
+        position: absolute;
+        top: 8.7rem;
+        left: 11rem;
+        padding: 0.3rem;
+        width: 17rem;
+        text-align: center;
+        text-transform: uppercase;
     }
 
     .tab-section {

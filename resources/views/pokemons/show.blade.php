@@ -3,6 +3,20 @@
 @section('content')
 <div class="pokemon">
     <div class="poke-profile">
+
+        <div class="name-section">
+            <span class="type-indicator type-indicator-{{$pokemonInfo['types'][0]}}"></span>
+            <p class=d-poke-name>{{$pokemonInfo['name']}}</p>
+            <div class="poke-DTypes">Type: 
+                @foreach ($pokemonInfo['types'] as $type)
+                <p> {{ ucfirst($type) }} </p>
+                @endforeach
+            </div>
+            <span class="next-evolution next-evolution-{{$pokemonInfo['types'][0]}}">
+                See Next Evolution
+            </span>
+        </div>
+
         <div class="poke-id">
             <p>#{{ $pokemonInfo['id'] }}</p>
         </div>
