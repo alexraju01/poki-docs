@@ -38,6 +38,15 @@
             {{-- </div> --}}
         </div>
 
+        <div class="d-poke-tab">
+            <div class="d-tabs">
+                <button class="d-tab-button">Description</button>
+                <button class="d-tab-button">Evolution</button>
+                <button class="d-tab-button">Skill Set</button>
+                {{-- <button class="d-tab-button"></button> --}}
+            </div>
+        </div>
+
         <div class="poke-id">
             <p>#{{ $pokemonInfo['id'] }}</p>
         </div>

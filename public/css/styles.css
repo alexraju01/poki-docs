@@ -223,6 +223,9 @@ body {
 .d-stats-container {
     display: none;
 }
+.d-poke-tab {
+    display: none;
+}
 
 /* Responsive Styles */
 @media screen and (min-width: 768px) {
@@ -325,7 +328,6 @@ body {
     /* stats */
 
     .d-stats-container {
-        background-color: bisque;
         position: absolute;
         left: 4%;
         min-width: 32%;
@@ -369,31 +371,27 @@ body {
         border-radius: 1rem;
     }
 
-    /* .poke-sprite {
+    .d-poke-tab {
+        padding: 0;
+        margin: 0;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
+        background-color: pink;
+        position: fixed;
+        height: 6rem;
+        width: 50rem;
+        bottom: 10%;
     }
 
-    .poke-bg-img {
-        width: 100%;
-
-        background-color: blueviolet;
+    .d-tab-button {
+        padding: 0;
+        margin: 0;
+        width: 10rem;
+        /* background-color: blueviolet; */
+        height: 100%;
+        padding: 1.5rem;
+        /* transform: skewX(-20deg); */
     }
-
-    .poke-profile {
-        width: 100%;
-        display: flex;
-    }
-
-    .poke-tabs {
-        background-color: lightblue;
-        width: 100%;
-    }
-
-    .tabs {
-        display: none;
-        overflow: hidden;
-        color: #a19fa0;
-    } */
 }
