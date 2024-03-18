@@ -223,7 +223,11 @@ body {
 .d-stats-container {
     display: none;
 }
-.d-poke-tab {
+.d-tab-section {
+    display: none;
+}
+
+.d-img-container {
     display: none;
 }
 
@@ -239,15 +243,53 @@ body {
 }
 
 @media (min-width: 1024px) {
+    .d-img-container {
+        display: block;
+
+        position: absolute;
+        top: 50%;
+        left: 40%;
+        transform: translateY(-50%);
+        height: 30rem;
+        width: 30rem;
+    }
+
+    .d-img-container img {
+        height: 28rem;
+    }
+
+    .d-img-container::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background-image: url("/images/pokedex.svg");
+        background-size: cover;
+        opacity: 0.25;
+        transform: rotate(10deg);
+    }
+
     .pokemon {
+        display: none;
+    }
+
+    .d-pokemon {
         height: 100vh;
         position: relative;
-        /* left: 55%; */
-        /* background-color: pink; */
     }
 
     .poke-profile {
         position: relative;
+    }
+
+    .d-poke-profile {
+        position: relative;
+        font-size: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 100%;
     }
 
     .img-container {
@@ -328,10 +370,10 @@ body {
     /* stats */
 
     .d-stats-container {
+        display: block;
         position: absolute;
         left: 4%;
         min-width: 32%;
-        width: 40rem;
         padding: 0 1rem;
         display: flex;
         flex-direction: column;
@@ -371,27 +413,45 @@ body {
         border-radius: 1rem;
     }
 
-    .d-poke-tab {
-        padding: 0;
-        margin: 0;
+    .d-tab-section {
+        /* background-color: pink; */
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color: pink;
         position: fixed;
-        height: 6rem;
-        width: 50rem;
-        bottom: 10%;
+        height: 100vh;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .d-tabs {
+        position: fixed;
+        bottom: 5%;
+        display: inline-flex;
     }
 
     .d-tab-button {
-        padding: 0;
-        margin: 0;
-        width: 10rem;
-        /* background-color: blueviolet; */
-        height: 100%;
-        padding: 1.5rem;
-        /* transform: skewX(-20deg); */
+        width: 30rem;
+        height: 10rem;
+        background: transparent;
+        border: 0.1rem solid #2e9868;
+        color: white;
+        font-size: 1.8rem;
+    }
+    .d-tab-button:nth-child(1) {
+        border-top-left-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+        border-right: none;
+    }
+    .d-tab-button:nth-child(3) {
+        border-top-right-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        border-left: none;
+    }
+
+    .d-tab-button:hover {
+        background-color: #2e9868;
     }
 }

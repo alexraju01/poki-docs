@@ -1,4 +1,3 @@
-<div class="tab-section" x-data="{ tab: 'stats' }">
 
     <div class="tab-section" x-data="{ tab: 'stats' }">
         <div class="tabs">
@@ -7,7 +6,7 @@
             <button class="tab-button" :class="{ 'active': tab === 'skills' }" @click="tab = 'skills'">Skills</button>
         </div>
     
-        <div class="stats-container" class="tab-content show" x-show="tab === 'stats'">
+        <div class="stats-container" class="tab-content" x-show="tab === 'stats'">
             <!-- Stats content -->
             {{-- <div class="stats"> --}}
                 @foreach($pokemonInfo['stats'] as $stat)
@@ -40,5 +39,4 @@
 
         </div>
     </div>
-</div>
 
