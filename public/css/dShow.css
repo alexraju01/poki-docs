@@ -45,17 +45,16 @@
 
     .d-img-container {
         display: block;
-
         position: absolute;
         top: 50%;
         left: 40%;
         transform: translateY(-50%);
-        height: 30rem;
-        width: 30rem;
+        height: 35rem;
+        width: 35rem;
     }
 
     .d-img-container img {
-        height: 28rem;
+        height: 35rem;
     }
 
     .d-img-container::after {
@@ -84,7 +83,7 @@
         flex-direction: column;
         position: absolute;
         top: 10%;
-        left: 4%;
+        left: 5%;
         width: 30rem;
         height: 10rem;
         background-color: #25241b;
@@ -103,7 +102,6 @@
         text-transform: uppercase;
         font-size: 1.8rem;
         margin-bottom: 1rem;
-        /* margin-top: 1rem; */
     }
 
     .name-section .poke-DTypes {
@@ -120,8 +118,6 @@
         text-transform: uppercase;
     }
 
-    /* stats */
-
     .box {
         display: flex;
         flex-direction: column;
@@ -136,16 +132,18 @@
     }
 
     .d-stats-container {
-        display: block;
+        display: flex;
+        justify-content: center;
         position: absolute;
-        left: 4%;
-        min-width: 32%;
-        padding: 0 1rem;
+        left: 5%;
+        width: clamp(25%, 27%, 30%);
+        /* min-width: 33rem;
+        max-width: 40rem; */
         display: flex;
         flex-direction: column;
         margin-top: 1rem;
         font-size: 1.6rem;
-        /* background-color: pink; */
+        height: 35rem;
     }
 
     .d-stats-container .d-stat {
@@ -156,7 +154,7 @@
     .d-stats-container .d-stat-label {
         flex: 1;
         color: #636468;
-        text-align: center;
+        text-align: left;
     }
 
     .d-stats-container .d-stat-num {
