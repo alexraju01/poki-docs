@@ -30,8 +30,8 @@ $colors: (
     }
 
     .button-#{$type} {
-        border: 0.1rem solid darken($color, 10%);
-        color: darken($color, 10%);
+        border: 0.1rem solid lighten($color, 30%);
+        color: lighten($color, 30%);
     }
 
     .poke-backdrop-#{$type} {

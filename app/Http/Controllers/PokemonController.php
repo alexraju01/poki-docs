@@ -92,7 +92,7 @@ class PokemonController extends Controller
      */
     public function index()
     {
-        $pokemons = $this->fetchPokemons(10000);
+        $pokemons = $this->fetchPokemons(1000);
         return view('pokemons.index', compact('pokemons'));
     }
 

@@ -1,0 +1,9 @@
+@media screen and (min-width: 768px) {
+    .stats-container {
+        min-width: 68rem;
+    }
+
+    .name-section {
+        display: none;
+    }
+}
