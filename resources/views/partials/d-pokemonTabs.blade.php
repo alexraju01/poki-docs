@@ -49,6 +49,11 @@
                 </div>
                 @endforeach
         </div>
+
+        <div class="description">
+            <p>{{$pokemonInfo['description']}}</p>
+        </div>
+
     </div>
 
     

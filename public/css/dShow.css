@@ -123,7 +123,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        position: fixed;
+        position: relative;
         z-index: -1;
         height: 100vh;
         left: 0;
@@ -136,9 +136,7 @@
         justify-content: center;
         position: absolute;
         left: 5%;
-        width: clamp(25%, 27%, 30%);
-        /* min-width: 33rem;
-        max-width: 40rem; */
+        min-width: 30%;
         display: flex;
         flex-direction: column;
         margin-top: 1rem;
@@ -166,7 +164,6 @@
 
     .d-stats-container .d-stat-bar {
         flex: 3;
-        /* min-width: 30rem; */
         background-color: #434949;
         height: 1rem;
         border-radius: 1rem;
@@ -198,8 +195,8 @@
     }
 
     .d-tab-button {
-        width: 30rem;
-        height: 10rem;
+        width: 22rem;
+        height: 7rem;
         background: transparent;
         border: 0.1rem solid #2e9868;
         color: white;
@@ -219,10 +216,22 @@
 
     .d-tab-button:hover {
         background-color: #3dcb8a;
+        color: black;
         cursor: pointer;
     }
 
     .d-tab-button.active {
         background-color: #2e9868;
+    }
+
+    .description {
+        text-align: center;
+        font-size: 1.5rem;
+        width: clamp(30rem, 35rem, 40rem);
+        position: absolute;
+        top: 20%;
+        right: 5%;
+        border: 0.1rem solid #2e9868;
+        padding: 1.5rem;
     }
 }
