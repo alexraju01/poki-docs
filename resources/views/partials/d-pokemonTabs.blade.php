@@ -50,8 +50,33 @@
                 @endforeach
         </div>
 
-        <div class="description">
-            <p>{{$pokemonInfo['description']}}</p>
+        <div class="about">
+            <div class=description>{{$pokemonInfo['description']}}</div>
+            
+            <div class=strengths>
+                <h2>Strengths</h2>
+                @foreach ($pokemonInfo['pros'] as $type => $strength)
+                    <h3>{{ ucfirst($type) }}</h3>
+                    <ul>
+                        <li>2x Damage To: {{ implode(', ', $strength['double_damage_to']) }}</li>
+                        {{-- <li>Half Damage From: {{ implode(', ', $strength['half_damage_from']) }}</li> --}}
+                        {{-- <li>No Damage From: {{ implode(', ', $strength['no_damage_from']) }}</li> --}}
+                    </ul>
+                @endforeach
+            </div>
+            
+            
+            <div class="weakness">
+                <h2>Weaknesses</h2>
+                @foreach ($pokemonInfo['cons'] as $type => $weakness)
+                <h3>{{ ucfirst($type) }}</h3>
+                <ul>
+                    {{-- <li>Half Damage To: {{ implode(', ', $weakness['half_damage_to']) }}</li> --}}
+                    <li>2x Damage From: {{ implode(', ', $weakness['double_damage_from']) }}</li>
+                    {{-- <li>No Damage To: {{ implode(', ', $weakness['no_damage_to']) }}</li> --}}
+                </ul>
+                @endforeach
+            </div>
         </div>
 
     </div>

@@ -40,6 +40,7 @@
     background-size: cover;
     opacity: 0.25;
     transform: rotate(10deg);
+    /* background-color: pink; */
 }
 
 /* Styling the pokemon name */
@@ -114,8 +115,8 @@
 /* ================== Stats Styles  =====================*/
 /*  */
 .stats-container {
-    min-width: 90vw;
-    padding: 0 1rem;
+    width: 100%;
+    padding: 0 2rem;
     display: flex;
     flex-direction: column;
     margin-top: 1rem;

@@ -1,0 +1,10 @@
+@media (min-width: 1199px) {
+    .d-tab-button {
+        width: 13vw; /* Responsive width */
+        height: 6vh; /* Responsive height */
+        font-size: 1.4vw; /* Responsive font size */
+        background: transparent;
+        border: 0.1rem solid #2e9868;
+        color: white;
+    }
+}

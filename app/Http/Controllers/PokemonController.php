@@ -157,50 +157,46 @@ private function extractLevelLearnedAt($vgd)
 }
 
 
-//      private function fetchPokemonMoves($moves) {
-//     $movesCollection = collect($moves)
-//         ->map(function ($move) {
-//             $levelUpMoves = collect($move['version_group_details'])
-//                 ->filter(function ($vgd) {
-//                     return $vgd['move_learn_method']['name'] == 'level-up';
-//                 })
-//                 ->map(function ($vgd) {
-//                     // Extract level learned at and version group name
-//                     return [
-//                         'level_learned_at' => $vgd['level_learned_at'],
-//                         // 'version_group_name' => $vgd['version_group']['name'],
-//                     ];
-//                 })
-//                 ->sortBy('level_learned_at') // Ensure lvl_req is sorted for each move
-//                 ->values() // Reset keys after sorting
-//                 ->first(); // Only keep the first value (lowest level)
+private function pokemonStrengthAndWeakness($id) {
+    $client = new Client();
+    $pokemonApiUrl = env('POKEMON_API_URL') . '/pokemon/' . $id;
+    $response = $client->request('GET', $pokemonApiUrl);
+    $pokeData = json_decode($response->getBody(), true);
+    $types = collect($pokeData['types'])->pluck('type.name');
 
-//             // Skip adding lvl_req if no level-up moves exist
-//             if (empty($levelUpMoves)) {
-//                 return null;
-//             }
+    $strengths = [];
+    $weaknesses = [];
 
-//             return [
-//                 'name' => $move['move']['name'],
-//                 'url' => $move['move']['url'],
-//                 'lvl_req' => $levelUpMoves,
-//             ];
-//         })
-//         ->filter() // Remove moves that ended up with null (no level-up moves)
-//         ->values(); // Re-index the collection after filtering
+    foreach ($types as $type) {
+        $typeResponse = $client->request('GET', "https://pokeapi.co/api/v2/type/{$type}");
+        $typeData = json_decode($typeResponse->getBody(), true);
 
-//     // Uncomment the next line to dump the collection for debugging
-//     // dd($movesCollection);
-//         dd($movesCollection);
-//     return $movesCollection;
-// }
+        $strengths[$type] = [
+            'double_damage_to' => collect($typeData['damage_relations']['double_damage_to'])->pluck('name')->all(),
+            'half_damage_from' => collect($typeData['damage_relations']['half_damage_from'])->pluck('name')->all(),
+            'no_damage_from' => collect($typeData['damage_relations']['no_damage_from'])->pluck('name')->all(),
+        ];
 
+        $weaknesses[$type] = [
+            'half_damage_to' => collect($typeData['damage_relations']['half_damage_to'])->pluck('name')->all(),
+            'double_damage_from' => collect($typeData['damage_relations']['double_damage_from'])->pluck('name')->all(),
+            'no_damage_to' => collect($typeData['damage_relations']['no_damage_to'])->pluck('name')->all(),
+        ];
+    }
 
+    return [
+        'strengths' => $strengths,
+        'weaknesses' => $weaknesses,
+    ];
+}
 
     public function show($id)
     {
         $pokemonData = $this->fetchPokemonData($id);
-
+        // dd($pokemonData);
+    
+        $strengthWeakness = $this->pokemonStrengthAndWeakness($id);
+        // dd($strengthWeakness);
         // Looping through pokemon types
         $types = collect($pokemonData['types'])
             ->pluck('type.name')
@@ -223,7 +219,10 @@ private function extractLevelLearnedAt($vgd)
             'genus' => $genus,                                                                      // Genus Information e.g. seed pokemon
             'description' => $description,
             'moves' => $this->fetchPokemonMoves($pokemonData['moves']),
-            'ability' => $this->fetchPokemonAbilities($pokemonData['abilities'])  
+            'ability' => $this->fetchPokemonAbilities($pokemonData['abilities']),
+            'pros' => $strengthWeakness['strengths'],   
+            'cons' => $strengthWeakness['weaknesses'],               
+
             // dd(); 
         ];
 

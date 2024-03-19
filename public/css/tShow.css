@@ -1,6 +1,6 @@
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 767px) {
     .stats-container {
-        min-width: 68rem;
+        max-width: 68rem;
     }
 
     .name-section {

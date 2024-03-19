@@ -41,14 +41,11 @@
 <div class="d-pokemon">
     <div class="d-poke-profile">
 
-
         <div class="d-poke-tabs">
             @include('partials.d-pokemonTabs', ['pokemon' => $pokemonInfo])
         </div>
     </div>
 </div>
-
-
 
 
 @endsection

@@ -1,39 +1,35 @@
 @media (min-width: 1024px) {
     /*  ============ Hide Mobile View =========== */
-    .pokemon {
-        display: none;
-    }
-
-    .poke-id {
-        display: none;
-    }
-
-    .poke-name {
-        display: none;
-    }
-
-    .poke-genus {
-        display: none;
-    }
-
-    .poke-types {
-        display: none;
-    }
-
+    .pokemon,
+    .poke-id,
+    .poke-name,
+    .poke-genus,
+    .poke-types,
     .tab-section {
         display: none;
     }
 
     .d-pokemon {
+        display: block;
         height: 100vh;
         position: relative;
     }
 
-    .poke-profile {
+    /* .poke-profile {
         position: relative;
-    }
+    } */
 
     .d-poke-profile {
+        font-size: 2vw; /* Adjust font size based on viewport width */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        min-height: 100%;
+    }
+
+    /* .d-poke-profile {
         position: relative;
         font-size: 3rem;
         display: flex;
@@ -41,9 +37,20 @@
         align-items: center;
         flex-direction: column;
         min-height: 100%;
-    }
+    } */
 
     .d-img-container {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 34%;
+        transform: translateY(-50%);
+        height: 25vw;
+        width: 25vw;
+    }
+
+    /* .d-img-container {
+        background-color: pink;
         display: block;
         position: absolute;
         top: 50%;
@@ -51,38 +58,74 @@
         transform: translateY(-50%);
         height: 35rem;
         width: 35rem;
-    }
+    } */
 
     .d-img-container img {
-        height: 35rem;
+        height: 100%; /* Adjust image height to container */
+        width: auto; /* Maintain aspect ratio */
     }
 
-    .d-img-container::after {
+    /* .d-img-container img {
+        height: 35rem;
+    } */
+
+    .about {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30%;
+        position: absolute;
+        right: 5%;
+        background-color: orangered;
+    }
+
+    .about > div {
+        padding: 1rem;
+    }
+
+    /* .description {
+        font-size: 1.3rem;
+        padding: 1.5rem;
+        background-color: orange;
+        display: block;
+        position: absolute;
+        top: 20%;
+        right: 5%;
+        transform: translateY(-50%);
+        height: auto;
+        width: 35rem;
+    } */
+
+    /* .d-img-container::after {
+        background-color: red;
         content: "";
         position: absolute;
         inset: 0;
-        z-index: -1;
+        z-index: 1;
         background-image: url("/images/pokedex.svg");
         background-size: cover;
         opacity: 0.25;
         transform: rotate(10deg);
-    }
+    } */
 
     .d-poke-id {
-        position: absolute;
-        /* background-color: green; */
-        /* padding: 10rem; */
         min-width: 5rem;
         top: 1rem;
         left: 25rem;
         font-size: 1.5rem;
     }
-
+    /* .d-poke-id {
+        position: absolute;
+        min-width: 5rem;
+        top: 1rem;
+        left: 25rem;
+        font-size: 1.5rem;
+    } */
     .name-section {
         display: flex;
         flex-direction: column;
         position: absolute;
-        top: 10%;
+        top: 5%;
         left: 5%;
         width: 30rem;
         height: 10rem;
@@ -132,16 +175,17 @@
     }
 
     .d-stats-container {
+        /* background-color: orange; */
         display: flex;
         justify-content: center;
         position: absolute;
         left: 5%;
-        min-width: 30%;
+        width: 25%;
         display: flex;
         flex-direction: column;
         margin-top: 1rem;
         font-size: 1.6rem;
-        height: 35rem;
+        height: auto;
     }
 
     .d-stats-container .d-stat {
@@ -176,7 +220,6 @@
     }
 
     .d-tab-section {
-        /* background-color: pink; */
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -195,14 +238,14 @@
     }
 
     .d-tab-button {
-        width: 22rem;
-        height: 7rem;
+        width: 15vw; /* Responsive width */
+        height: 7vh; /* Responsive height */
+        font-size: 1.4vw; /* Responsive font size */
         background: transparent;
         border: 0.1rem solid #2e9868;
         color: white;
-        font-size: 1.8rem;
-        transition: all 0.3s;
     }
+
     .d-tab-button:nth-child(1) {
         border-top-left-radius: 1rem;
         border-bottom-left-radius: 1rem;
@@ -216,22 +259,11 @@
 
     .d-tab-button:hover {
         background-color: #3dcb8a;
-        color: black;
+        /* color: black; */
         cursor: pointer;
     }
 
     .d-tab-button.active {
         background-color: #2e9868;
-    }
-
-    .description {
-        text-align: center;
-        font-size: 1.5rem;
-        width: clamp(30rem, 35rem, 40rem);
-        position: absolute;
-        top: 20%;
-        right: 5%;
-        border: 0.1rem solid #2e9868;
-        padding: 1.5rem;
     }
 }
