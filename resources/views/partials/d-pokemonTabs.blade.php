@@ -1,9 +1,9 @@
 <div class="d-tab-section" x-data="{ tab: 'description' }">
 
     <div class="d-tabs">
-        <button class="d-tab-button" :class="{'active': tab === 'description'}" @click="tab = 'description'">Description</button>
-        <button class="d-tab-button" :class="{'active': tab === 'evolution'}" @click="tab = 'evolution'">Evolution</button>
-        <button class="d-tab-button" :class="{'active': tab === 'skillset'}" @click="tab = 'skillset'">Skill Set</button>
+        <button class="d-tab-button-{{ $pokemonInfo['types'][0] }}" :class="{'active': tab === 'description'}" @click="tab = 'description'">Description</button>
+        <button class="d-tab-button-{{ $pokemonInfo['types'][0] }}" :class="{'active': tab === 'evolution'}" @click="tab = 'evolution'">Evolution</button>
+        <button class="d-tab-button-{{ $pokemonInfo['types'][0] }}" :class="{'active': tab === 'skillset'}" @click="tab = 'skillset'">Skill Set</button>
         {{-- <button class="d-tab-button"></button> --}}
     </div>
     

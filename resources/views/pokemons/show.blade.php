@@ -3,6 +3,8 @@
 @section('content')
 <div class="pokemon">
     <div class="poke-profile">
+
+        <a href="{{route('pokemons.index')}}"><span class="go-back"><</span></a>
     
         <div class="poke-id">
             <p>#{{ $pokemonInfo['id'] }}</p>

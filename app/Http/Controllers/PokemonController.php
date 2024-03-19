@@ -53,21 +53,76 @@ class PokemonController extends Controller
     private function calculateStatPercentage($baseStat, $maxStatValue = 255) {
         return ($baseStat / $maxStatValue) * 100;
     }
+
+//     public function adjustBrightness($hexColor, $factor = 0.2)
+// {
+//     $factor = max(0, min(1, $factor)); // Ensure factor is between 0 and 1
+
+//     // Convert hex to RGB
+//     $rgb = sscanf($hexColor, "#%02x%02x%02x");
+
+//     // Increase the RGB values based on the factor to make the color brighter
+//     $brighterRgb = array_map(function ($color) use ($factor) {
+//         return 255 - (255 - $color) * (1 - $factor);
+//     }, $rgb);
+
+//     // Convert back to hex and return
+//     return sprintf("#%02x%02x%02x", ...$brighterRgb);
+// }
     
-    private function determineBackgroundColor($statName) {
-        return in_array($statName, ['special-attack', 'special-defense']) ? '#2fb487' : '#c9c7c8';
+    private function determineBackgroundColor($statName, $pokemonType) {
+        // Define a mapping of Pokémon types to colors
+        $typeColors = [
+            'bug' => '#92b242',
+            'dark' => '#5a526a',
+            'dragon' => '#6a68cf',
+            'electric' => '#e2e242',
+            'fairy' => '#e242bc',
+            'fighting' => '#e27242',
+            'fire' => '#e24242',
+            'flying' => '#9090e2',
+            'ghost' => '#6768cf',
+            'grass' => '#2e9868',
+            'ground' => '#d2a758',
+            'ice' => '#68cfcf',
+            'normal' => '#a8a68a',
+            'poison' => '#9c50b7',
+            'psychic' => '#e24292',
+            'rock' => '#a8a258',
+            'steel' => '#a8aacb',
+            'water' => '#4a90e2',
+            // Add other types as needed
+        ];
+        
+        
+        // If the stat is special-attack or special-defense, return a specific color
+        if (in_array($statName, ['special-attack', 'special-defense'])) {
+            return $typeColors[$pokemonType];
+        }
+        
+        // If the Pokémon type matches one in the mapping, return its color
+        if (array_key_exists($pokemonType, $typeColors)) {
+            // $backgroundColor = $this->determineBackgroundColor($statName, $pokemonType);
+            // $backgroundColor = $this->adjustBrightness($typeColors[$pokemonType], 0.9);
+            return $typeColors[$pokemonType];
+
+        }
+        
+        // Default color if no specific conditions are met
+        return '#c9c7c8';
     }
     
-    private function percentageStatsBarWithColor($stats) {
-        return collect($stats)->map(function ($stat) {
-            $backgroundColor = $this->determineBackgroundColor($stat['stat']['name']);
+    private function percentageStatsBarWithColor($stats, $pokemonType) {
+        return collect($stats)->map(function ($stat) use ($pokemonType) {
+            // Pass the Pokémon type to determineBackgroundColor
+            $backgroundColor = $this->determineBackgroundColor($stat['stat']['name'], $pokemonType);
             $statPercentage = $this->calculateStatPercentage($stat['base_stat']);
             
             return array_merge($stat, [
                 'background_color' => $backgroundColor,
                 'percentage' => $statPercentage,
             ]);
-        })->all(); // Convert back to array 
+        })->all(); // Convert back to array
     }
     
     private function fetchPokemons($limit) {
@@ -207,7 +262,8 @@ private function pokemonStrengthAndWeakness($id) {
             ->firstWhere('language.name', 'en')['genus'];
         
         $description = $this->fetchPokemonDescription($id);
-        $statsBarWithColor = $this->percentageStatsBarWithColor($pokemonData['stats']);
+        $statsBarWithColor = $this->percentageStatsBarWithColor($pokemonData['stats'], $types[0]);
+        // dd($statsBarWithColor);
         
 
         $pokemonInfo = [

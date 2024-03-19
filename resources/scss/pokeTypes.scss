@@ -30,8 +30,8 @@ $colors: (
     }
 
     .button-#{$type} {
-        border: 0.1rem solid lighten($color, 30%);
-        color: lighten($color, 30%);
+        border: 0.1rem solid darken($color, 10%);
+        color: darken($color, 10%);
     }
 
     .poke-backdrop-#{$type} {
@@ -44,6 +44,38 @@ $colors: (
 
     .next-evolution-#{$type} {
         border: 0.2rem solid $color;
+    }
+
+    .d-tab-button-#{$type} {
+        min-width: 15rem; /* Responsive width */
+        height: 6rem; /* Responsive height */
+        font-size: 1.5rem; /* Responsive font size */
+        background: transparent;
+        border: 0.1rem solid $color;
+        color: white;
+        font-weight: 700;
+    }
+
+    .d-tab-button-#{$type}:nth-child(1) {
+        border-top-left-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+        border-right: none;
+    }
+    .d-tab-button-#{$type}:nth-child(3) {
+        border-top-right-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        border-left: none;
+    }
+
+    .d-tab-button-#{$type}:hover {
+        background-color: $color;
+        cursor: pointer;
+        color: black;
+    }
+
+    .d-tab-button-#{$type}.active {
+        background-color: $color;
+        color: black;
     }
 }
 

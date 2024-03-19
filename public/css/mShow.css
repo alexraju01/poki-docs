@@ -17,6 +17,12 @@
     min-height: 100%;
 }
 
+.go-back {
+    position: absolute;
+    left: 8%;
+    top: 0;
+}
+
 .name-section {
     display: none;
 }
