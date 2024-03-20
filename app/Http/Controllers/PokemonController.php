@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 
 class PokemonController extends Controller
@@ -185,6 +186,18 @@ class PokemonController extends Controller
         ->values();
 }
 
+// ======================== Pokemon types ==============================
+
+
+
+private function getEvolutionChainId($id) {
+    $speciesData = $this->fetchPokemonSpecies($id);
+    $evolutionChainUrl = $speciesData['evolution_chain']['url'];
+    $urlSegments = explode('/', rtrim($evolutionChainUrl, '/'));
+    $evolutionChainId = end($urlSegments);
+    return $evolutionChainId;
+}
+
 private function prepareMove($move) {
     $levelUpMove = $this->getFirstLevelUpMove($move['version_group_details']);
     if (is_null($levelUpMove)) {
@@ -210,6 +223,8 @@ private function extractLevelLearnedAt($vgd)
 {
     return ['level_learned_at' => $vgd['level_learned_at']];
 }
+
+
 
 
 private function pokemonStrengthAndWeakness($id) {
@@ -245,26 +260,28 @@ private function pokemonStrengthAndWeakness($id) {
     ];
 }
 
+
     public function show($id)
     {
         $pokemonData = $this->fetchPokemonData($id);
-        // dd($pokemonData);
     
         $strengthWeakness = $this->pokemonStrengthAndWeakness($id);
-        // dd($strengthWeakness);
+
         // Looping through pokemon types
         $types = collect($pokemonData['types'])
             ->pluck('type.name')
             ->all();
         
+
+        // $this->getEvolutionChainId($id);
         $pokemonSpecies = $this->fetchPokemonSpecies($id);
         $genus = collect($pokemonSpecies['genera'])
             ->firstWhere('language.name', 'en')['genus'];
         
         $description = $this->fetchPokemonDescription($id);
         $statsBarWithColor = $this->percentageStatsBarWithColor($pokemonData['stats'], $types[0]);
-        // dd($statsBarWithColor);
         
+        // $this->getPokemonByType($pokemonData['id'], $types[0], $this->getEvolutionChainId($id));
 
         $pokemonInfo = [
             'id' => $pokemonData['id'],                                                             // ID
