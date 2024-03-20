@@ -15,7 +15,7 @@
    <div class="card-container">
        @foreach($pokemons as $pokemon)
        <a href="{{ route('pokemons.show', ['pokemon' => $pokemon['id']]) }}">
-        <div class="card ">
+        <div class="card">
             <p>{{$pokemon['id']}}</p>
             <img src="{{ $pokemon['sprite'] }}" alt="{{ ucfirst($pokemon['name']) }}">
             <p>{{ ucfirst($pokemon['name'])}}</p>
