@@ -25,7 +25,7 @@ class PokemonController extends Controller
     public function index()
     {
         // $pokemons = $this->fetchPokemons(1000);
-        $pokemons = $this->pokemonApiService->fetchPokemons(1000);
+        $pokemons = $this->pokemonApiService->fetchPokemons(100000);
         return view('pokemons.index', compact('pokemons'));
     }
 
