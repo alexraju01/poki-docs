@@ -30,7 +30,7 @@ class PokemonApiService
         $response = Http::get("{$this->baseUrl}/type/{$type}");
 
         $data = json_decode($response->getBody()->getContents(), true);
-        // dd($data['pokemon']);
+        // dd(collect($data['pokemon'])->take(3));
         return $data['pokemon'] ?? [];
     } 
 
@@ -162,7 +162,7 @@ class PokemonApiService
                 'no_damage_to' => collect($typeData['damage_relations']['no_damage_to'])->pluck('name')->all(),
             ];
         }
-    
+        // dd($strengths);
         return [
             'strengths' => $strengths,
             'weaknesses' => $weaknesses,
