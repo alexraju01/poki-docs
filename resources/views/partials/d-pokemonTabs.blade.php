@@ -56,7 +56,6 @@
             <div class=strengths>
                 <h2>Strengths</h2>
                 @foreach ($pokemonInfo['pros'] as $type => $strength)
-                    <h3>{{ ucfirst($type) }}</h3>
                     <ul>
                         <li>2x Damage To: {{ implode(', ', $strength['double_damage_to']) }}</li>
                         {{-- <li>Half Damage From: {{ implode(', ', $strength['half_damage_from']) }}</li> --}}

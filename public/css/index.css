@@ -18,6 +18,12 @@ body {
     background-color: #17171d;
 }
 
+h1 {
+    text-align: center;
+    font-size: 4rem;
+    padding: 1rem;
+}
+
 .card-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
