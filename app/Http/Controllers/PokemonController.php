@@ -25,7 +25,7 @@ class PokemonController extends Controller
     public function index()
     {
         // $pokemons = $this->fetchPokemons(1000);
-        $pokemons = $this->pokemonApiService->fetchPokemons(1000);
+        $pokemons = $this->pokemonApiService->fetchPokemons(100000);
         return view('pokemons.index', compact('pokemons'));
     }
 
@@ -60,7 +60,7 @@ class PokemonController extends Controller
         $description = $this->pokemonApiService->fetchPokemonDescription($id);
         $statsBarWithColor = $this->pokemonApiService->percentageStatsBarWithColor($pokemonData['stats'], $types[0]);
         $strengthAndWeakness = $this->pokemonApiService->pokemonStrengthAndWeakness($id);
-
+        // $pokemonByType = $this->pokemonApiService->fetchPokemonByType($types[0]);
 
         
         
@@ -76,9 +76,8 @@ class PokemonController extends Controller
             'description' => $description,
             'moves' => $this->pokemonApiService->fetchPokemonMoves($pokemonData['moves']),
             'ability' => $this->pokemonApiService->fetchPokemonAbilities($pokemonData['abilities']),
-            'pros' => $strengthAndWeakness['strengths'],   
-            'cons' => $strengthAndWeakness['weaknesses'],               
-
+            'strengths' => $strengthAndWeakness['strengths'],   
+            'weaknesses' => $strengthAndWeakness['weaknesses'],               
         ];
 
         return view('pokemons.show', compact('pokemonInfo'));

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Services;
-use GuzzleHttp\Client;
+// use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 class PokemonApiService
@@ -15,17 +15,24 @@ class PokemonApiService
 
     // =========================== Extracting ID From URL ===========================
     protected function extractIdFromUrl($url) {
-        return str::of($url)->trim('/')->explode('/')->last();
+        return Str::of($url)->trim('/')->explode('/')->last();
     }
     // =========================== Fetching Pokemons ===========================
     public function fetchPokemons($limit){
-        $response = Http::get("{$this->baseUrl}/pokemon?limit=" . "$limit");
+        $response = Http::get("{$this->baseUrl}/pokemon?limit=" . $limit);
         if ($response->successful()) {
             $data = $response->json()['results'];
             return $this->addImgAndIdToData($data);
         }
-
     }
+
+    public function fetchPokemonByType($type){
+        $response = Http::get("{$this->baseUrl}/type/{$type}");
+
+        $data = json_decode($response->getBody()->getContents(), true);
+        // dd($data['pokemon']);
+        return $data['pokemon'] ?? [];
+    } 
 
     // =========================== Adding Image And ID To Data ===========================
     protected function addImgAndIdToData($data) {
