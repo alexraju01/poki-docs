@@ -33,6 +33,19 @@ $colors: (
         border: 0.1rem solid darken($color, 10%);
         color: darken($color, 10%);
     }
+    // =========== Desktop Button Types (show.blade.php) =============
+    .d-button-#{$type} {
+        border: 0.15rem solid $color;
+        padding: 0.5rem 1.4rem;
+        margin: 0.4rem 0.4rem;
+        border-radius: 2rem;
+        min-width: 7rem;
+        cursor: pointer;
+        background: transparent;
+        font-size: 1.6rem;
+        color: $color;
+        filter: drop-shadow(0rem 0rem 0.8rem rgba($color, 0.6));
+    }
 
     .poke-backdrop-#{$type} {
         filter: drop-shadow(0rem 0rem 1.2rem rgba($color, 0.6));

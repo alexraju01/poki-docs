@@ -40,18 +40,26 @@
         width: auto; /* Maintain aspect ratio */
     }
 
-    .about {
+    .d-about {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         width: 30%;
         position: absolute;
         right: 5%;
+        line-height: 2rem;
+        font-size: 1.5rem;
+        margin: 1.8rem 2rem;
         /* background-color: orangered; */
     }
 
-    .about > div {
-        padding: 1rem;
+    .d-about h1 {
+        font-size: 2.5rem;
+        /* background-color: pink; */
+    }
+
+    .d-about > div {
+        padding: 1rem 0;
     }
 
     .d-poke-id {
@@ -120,7 +128,7 @@
         justify-content: center;
         position: absolute;
         left: 5%;
-        width: 25%;
+        width: 26%;
         display: flex;
         flex-direction: column;
         margin-top: 1rem;
