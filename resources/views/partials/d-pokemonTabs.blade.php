@@ -55,7 +55,7 @@
             
             <div class=strengths>
                 <h2>Strengths</h2>
-                @foreach ($pokemonInfo['strength'] as $type => $strength)
+                @foreach ($pokemonInfo['strengths'] as $type => $strength)
                     <ul>
                         <li>2x Damage To: {{ implode(', ', $strength['double_damage_to']) }}</li>
                         {{-- <li>Half Damage From: {{ implode(', ', $strength['half_damage_from']) }}</li> --}}
