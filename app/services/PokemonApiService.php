@@ -48,6 +48,7 @@ class PokemonApiService
     // =========================== Fetching Pokemon Species ===========================
     public function fetchPokemonSpecies($id) {
         $response = Http::get("{$this->baseUrl}/pokemon-species/{$id}");
+        // dd($response->json());
         return $response->json();
     }
     
@@ -61,6 +62,9 @@ class PokemonApiService
 
     public function fetchPokemonDescription($id) {
         $pokemonSpeciesData = $this->fetchPokemonSpecies($id);
+        if (empty($pokemonSpeciesData['flavor_text_entries'])) {
+            return null;
+        }
         return collect($pokemonSpeciesData['flavor_text_entries'])
             ->where('language.name', 'en')      // English language
             ->take(3)                           // 3 lines worth

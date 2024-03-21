@@ -55,7 +55,8 @@ class PokemonController extends Controller
         $pokemonData = $this->pokemonApiService->fetchPokemonData($id); //
         $types = collect($pokemonData['types'])->pluck('type.name')->all();
         $pokemonSpecies = $this->pokemonApiService->fetchPokemonSpecies($id);
-        $genus = collect($pokemonSpecies['genera'])->firstWhere('language.name', 'en')['genus'];
+        $genus = collect($pokemonSpecies['genera'] ?? [])->firstWhere('language.name', 'en')['genus'] ?? null;
+
         $description = $this->pokemonApiService->fetchPokemonDescription($id);
         $statsBarWithColor = $this->pokemonApiService->percentageStatsBarWithColor($pokemonData['stats'], $types[0]);
         $strengthAndWeakness = $this->pokemonApiService->pokemonStrengthAndWeakness($id);
