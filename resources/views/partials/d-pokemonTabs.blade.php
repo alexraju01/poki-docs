@@ -17,7 +17,7 @@
         <p class="d-poke-id">#{{ $pokemonInfo['id'] }}</p>
         <div class="poke-DTypes">Type: 
             @foreach ($pokemonInfo['types'] as $type)
-            <p> {{ ucfirst($type) }} </p>
+                <p> {{ ucfirst($type) }} </p>
             @endforeach
         </div>
         <span class="next-evolution next-evolution-{{$pokemonInfo['types'][0]}}">
@@ -38,15 +38,18 @@
         <div class="d-stats-container" >
 
                 @foreach($pokemonInfo['stats'] as $stat)
-                <div class="d-stat">
-                    <span class="d-stat-label">{{ str_replace(['Special-attack','Special-defense'],[' Sp. Atk',' Sp. Def'], ucFirst($stat['stat']['name'])) }}</span>
-                    <span class="d-stat-num">{{ $stat['base_stat'] }}</span>
-                    <div class="d-stat-bar">
-                        <div class="d-stat-fill" 
-                            style="width: {{ $stat['percentage'] }}%; background-color: {{ $stat['background_color'] }};">
+                    <div class="d-stat">
+                        <span class="d-stat-label">{{ str_replace(['Special-attack','Special-defense'],[' Sp. Atk',' Sp. Def'], ucFirst($stat['stat']['name'])) }}</span>
+                        <span class="d-stat-num">{{ $stat['base_stat'] }}</span>
+                        
+                        
+                        
+                        <div class="d-stat-bar">
+                            <div class="d-stat-fill" 
+                                style="width: {{ $stat['percentage'] }}%; background-color: {{ $stat['background_color'] }};">
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
         </div>
 
@@ -56,8 +59,8 @@
             <h1 syle="text-align:start;">Description</h1>
             <div class=description>{{$pokemonInfo['description']}}</div>
             <span class="line-break-{{$pokemonInfo['types'][0]}}"></span>
-            <x-pokemon-stats  title="weaknesses" :data="$pokemonInfo['weaknesses']" />
-            <x-pokemon-stats  title="strengths" :data="$pokemonInfo['strengths']" />
+            <x-strengths-weakness-tag  title="strengths" :data="$pokemonInfo['strengths']"/>
+            <x-strengths-weakness-tag  title="weaknesses" :data="$pokemonInfo['weaknesses']"/>
         </div>
 
     </div>

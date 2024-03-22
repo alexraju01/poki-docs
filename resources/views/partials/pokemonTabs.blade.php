@@ -6,8 +6,6 @@
     </div>
 
     <div class="stats-container" x-show="tab === 'stats'">
-        <!-- Stats content -->
-        {{-- <div class="stats"> --}}
             @foreach($pokemonInfo['stats'] as $stat)
             <div class="stat">
                 <span class="stat-label">{{ str_replace(['Special-attack','Special-defense'],[' Sp. Atk',' Sp. Def'], ucFirst($stat['stat']['name'])) }}</span>
