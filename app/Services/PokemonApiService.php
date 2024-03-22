@@ -162,7 +162,7 @@ class PokemonApiService
                 'no_damage_to' => collect($typeData['damage_relations']['no_damage_to'])->pluck('name')->all(),
             ];
         }
-        // dd($strengths);
+        // dd($weaknesses);
         return [
             'strengths' => $strengths,
             'weaknesses' => $weaknesses,

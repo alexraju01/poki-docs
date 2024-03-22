@@ -35,6 +35,18 @@
         width: 25vw;
     }
 
+    .d-img-container::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background-image: url("/images/pokedex.svg");
+        background-size: cover;
+        opacity: 0.25;
+        transform: rotate(10deg);
+        /* background-color: pink; */
+    }
+
     .d-img-container img {
         height: 100%;
         width: auto;

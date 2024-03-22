@@ -58,11 +58,10 @@
             
             <div class=strengths>
                 <h2>Strengths</h2>
-                @foreach ($pokemonInfo['strengths'] as $type => $strength)
+                @foreach ($pokemonInfo['strengths'] as $strength)
                 {{-- <h3>{{ ucfirst($type) }}</h3> --}}
                 <div class="d-poke-types">
                     @foreach ($strength['double_damage_to'] as $damageType)
-                    {{-- <h1>{{$damageType}}</h1> --}}
                         <button class="d-button-{{ $damageType }}">{{ ucfirst($damageType) }}</button>
                     @endforeach
                 </div>
@@ -72,27 +71,16 @@
            
             <div class=weaknesses>
                 <h2>Weakness</h2>
-                @foreach ($pokemonInfo['weaknesses'] as $type => $weakness)
+                @foreach ($pokemonInfo['weaknesses'] as $weakness)
                 {{-- <h3>{{ ucfirst($type) }}</h3> --}}
                 <div class="d-poke-types">
                     @foreach ($weakness['double_damage_from'] as $damageType)
-                    {{-- <h1>{{$damageType}}</h1> --}}
                         <button class="d-button-{{ $damageType }}">{{ ucfirst($damageType) }}</button>
                     @endforeach
                 </div>
                 @endforeach
             </div>
 
-            {{-- <div class="weakness">
-                <h2>Weaknesses</h2>
-                @foreach ($pokemonInfo['weaknesses'] as $type => $weakness)
-                <h3>{{ ucfirst($type) }}</h3>
-                <ul>
-                    <li>Half Damage To: {{ implode(', ', $weakness['half_damage_to']) }}</li>
-                    <li>2x Damage From: {{ implode(', ', $weakness['double_damage_from']) }}</li>
-                </ul>
-                @endforeach
-            </div> --}}
         </div>
 
     </div>
