@@ -47,6 +47,14 @@ $colors: (
         filter: drop-shadow(0rem 0rem 0.8rem rgba($color, 0.6));
     }
 
+    .line-break-#{$type} {
+        background-color: $color;
+        height: 0.2rem;
+        border-radius: 0.2rem;
+        width: 100%;
+        margin: 2rem 0;
+    }
+
     .poke-backdrop-#{$type} {
         filter: drop-shadow(0rem 0rem 1.2rem rgba($color, 0.6));
     }

@@ -36,8 +36,8 @@
     }
 
     .d-img-container img {
-        height: 100%; /* Adjust image height to container */
-        width: auto; /* Maintain aspect ratio */
+        height: 100%;
+        width: auto;
     }
 
     .d-about {
@@ -50,16 +50,17 @@
         line-height: 2rem;
         font-size: 1.5rem;
         margin: 1.8rem 2rem;
-        /* background-color: orangered; */
     }
-
     .d-about h1 {
-        font-size: 2.5rem;
-        /* background-color: pink; */
+        padding: 1rem 0;
     }
 
-    .d-about > div {
-        padding: 1rem 0;
+    .d-about h2 {
+        padding: 0 0 0.8rem 0;
+    }
+    .strengths,
+    .weaknesses {
+        margin-bottom: 2rem;
     }
 
     .d-poke-id {
@@ -128,7 +129,7 @@
         justify-content: center;
         position: absolute;
         left: 5%;
-        width: 26%;
+        width: 28%;
         display: flex;
         flex-direction: column;
         margin-top: 1rem;

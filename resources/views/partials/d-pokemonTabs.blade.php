@@ -51,8 +51,10 @@
         </div>
 
         <div class="d-about">
-            <h1>Description</h1>
+            <h1 syle="text-align:start;">Description</h1>
             <div class=description>{{$pokemonInfo['description']}}</div>
+
+            <span class="line-break-{{$pokemonInfo['types'][0]}}"></span>
             
             <div class=strengths>
                 <h2>Strengths</h2>
