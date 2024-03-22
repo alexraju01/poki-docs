@@ -50,37 +50,14 @@
                 @endforeach
         </div>
 
+
+
         <div class="d-about">
             <h1 syle="text-align:start;">Description</h1>
             <div class=description>{{$pokemonInfo['description']}}</div>
-
             <span class="line-break-{{$pokemonInfo['types'][0]}}"></span>
-            
-            <div class=strengths>
-                <h2>Strengths</h2>
-                @foreach ($pokemonInfo['strengths'] as $strength)
-                {{-- <h3>{{ ucfirst($type) }}</h3> --}}
-                <div class="d-poke-types">
-                    @foreach ($strength['double_damage_to'] as $damageType)
-                        <button class="d-button-{{ $damageType }}">{{ ucfirst($damageType) }}</button>
-                    @endforeach
-                </div>
-                @endforeach
-            </div>
-            
-           
-            <div class=weaknesses>
-                <h2>Weakness</h2>
-                @foreach ($pokemonInfo['weaknesses'] as $weakness)
-                {{-- <h3>{{ ucfirst($type) }}</h3> --}}
-                <div class="d-poke-types">
-                    @foreach ($weakness['double_damage_from'] as $damageType)
-                        <button class="d-button-{{ $damageType }}">{{ ucfirst($damageType) }}</button>
-                    @endforeach
-                </div>
-                @endforeach
-            </div>
-
+            <x-pokemon-stats  title="weaknesses" :data="$pokemonInfo['weaknesses']" />
+            <x-pokemon-stats  title="strengths" :data="$pokemonInfo['strengths']" />
         </div>
 
     </div>

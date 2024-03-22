@@ -32,6 +32,7 @@
     <!-- Tabs for additional details about the Pokemon -->
     <div class="poke-tabs">
         @include('partials.pokemonTabs', ['pokemon' => $pokemonInfo])
+
     </div>
 
 
@@ -44,6 +45,7 @@
     <div class="d-poke-profile">
         <div class="d-poke-tabs">
             @include('partials.d-pokemonTabs', ['pokemon' => $pokemonInfo])
+            {{-- @include('components.pokemon-stats', ['pokemon' => $pokemonInfo]) --}}
         </div>
     </div>
 </div>
