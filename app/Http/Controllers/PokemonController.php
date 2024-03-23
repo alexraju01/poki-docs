@@ -52,6 +52,7 @@ class PokemonController extends Controller
     public function show($id)
     {
         $pokemonData = $this->pokemonApiService->fetchPokemonData($id); //
+        // dd($pokemonData);
         $types = collect($pokemonData['types'])->pluck('type.name')->all();
         $pokemonSpecies = $this->pokemonApiService->fetchPokemonSpecies($id);
         $genus = collect($pokemonSpecies['genera'] ?? [])->firstWhere('language.name', 'en')['genus'] ?? null;
@@ -61,7 +62,7 @@ class PokemonController extends Controller
         $strengthAndWeakness = $this->pokemonApiService->pokemonStrengthAndWeakness($id);
         $pokemonByType = $this->pokemonApiService->fetchPokemonByType($types[0]);
 
-        
+        // dd($strengthAndWeakness['strengths']);
         
         // $this->getPokemonByType($pokemonData['id'], $types[0], $this->getEvolutionChainId($id));
 
@@ -76,7 +77,8 @@ class PokemonController extends Controller
             'moves' => $this->pokemonApiService->fetchPokemonMoves($pokemonData['moves']),
             'ability' => $this->pokemonApiService->fetchPokemonAbilities($pokemonData['abilities']),
             'strengths' => $strengthAndWeakness['strengths'],   
-            'weaknesses' => $strengthAndWeakness['weaknesses'],               
+            'weaknesses' => $strengthAndWeakness['weaknesses'],
+            'evolutions' => $this->pokemonApiService->showEvolutions($pokemonData['name'])               
         ];
 
         return view('pokemons.show', compact('pokemonInfo'));

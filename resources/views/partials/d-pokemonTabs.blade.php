@@ -59,6 +59,7 @@
             <h1 syle="text-align:start;">Description</h1>
             <div class=description>{{$pokemonInfo['description']}}</div>
             <span class="line-break-{{$pokemonInfo['types'][0]}}"></span>
+          
             <x-strengths-weakness-tag  title="strengths" :data="$pokemonInfo['strengths']"/>
             <x-strengths-weakness-tag  title="weaknesses" :data="$pokemonInfo['weaknesses']"/>
         </div>
@@ -69,6 +70,16 @@
     
     <div class="evolution" x-show="tab === 'evolution'">
         <p>Evolution Path Evolution Path</p>
+        <div class="d-evolution-container">
+            {{-- Display evolutions here --}}
+            @foreach ($pokemonInfo['evolutions'] as $evolution)
+            <div class="evolution">
+                <p>{{$evolution['name']}}</p>
+                <img src="{{$evolution['image_url']}}" alt="">
+            </div>
+                {{-- Your evolution display logic --}}
+            @endforeach
+        </div>
     </div>
 
     <div class="skillsets" x-show="tab === 'skillset'">

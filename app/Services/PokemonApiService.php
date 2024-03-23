@@ -2,6 +2,8 @@
 
 namespace App\Services;
 // use GuzzleHttp\Client;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 class PokemonApiService
@@ -220,5 +222,43 @@ class PokemonApiService
     {
         return ['level_learned_at' => $vgd['level_learned_at']];
     }
+
+//  ======================= Evolutions ==================================
+    public function showEvolutions($name)
+{
+    $cacheKey = "pokemon_evolutions_with_levels_{$name}";
+    $evolutions = Cache::remember($cacheKey, now()->addDay(), function () use ($name) {
+        $speciesResponse = Http::get("https://pokeapi.co/api/v2/pokemon-species/{$name}");
+        $evolutionChainUrl = $speciesResponse->json()['evolution_chain']['url'];
+        $evolutionData = Http::get($evolutionChainUrl)->json();
+
+        return $this->fetchEvolutions([$evolutionData['chain']]);
+    });
+    return $evolutions;
+}
+
+protected function fetchEvolutions($evolutionNode, $level = null)
+{
+    $evolutions = collect();
+    foreach ($evolutionNode as $evolution) {
+        $speciesName = $evolution['species']['name'];
+        $pokemonData = Http::get("https://pokeapi.co/api/v2/pokemon/{$speciesName}")->json();
+
+        $evolutionDetails = collect($evolution['evolution_details'])->first();
+        $evolvesAtLevel = $evolutionDetails ? $evolutionDetails['min_level'] : null;
+
+        // dd($evolutionDetails);
+        $evolutions->push([
+            'name' => $speciesName,
+            'image_url' => $pokemonData['sprites']['front_default'],
+            'evolves_at_level' => $evolvesAtLevel,
+        ]);
+
+        if (!empty($evolution['evolves_to'])) {
+            $evolutions = $evolutions->merge($this->fetchEvolutions($evolution['evolves_to'], $evolvesAtLevel));
+        }
+    }
+    return $evolutions;
+}
 
 }

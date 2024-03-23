@@ -4,7 +4,7 @@
 <div class="pokemon">
     <div class="poke-profile">
 
-        <a href="{{route('pokemons.index')}}"><span class="go-back"><</span></a>
+        <a href="{{route('pokemons.index')}}"><img src="/images/go-back-home.svg" class="go-back-home"></a>
     
         <div class="poke-id">
             <p>#{{ $pokemonInfo['id'] }}</p>
@@ -32,7 +32,6 @@
     <!-- Tabs for additional details about the Pokemon -->
     <div class="poke-tabs">
         @include('partials.pokemonTabs', ['pokemon' => $pokemonInfo])
-
     </div>
 
 

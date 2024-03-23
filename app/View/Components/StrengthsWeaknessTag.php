@@ -16,11 +16,10 @@ class StrengthsWeaknessTag extends Component
         $this->processedData = $this->processData();
     }
 
-    protected function processData()
-    {
+    protected function processData() {
         $processed = [];
         $damageDirection = $this->title === 'strengths' ? 'double_damage_to' : 'double_damage_from';
-        // dd($this->data);
+
         foreach ($this->data as $typeName => $typeData) {
             if (isset($typeData[$damageDirection])) {
                 foreach ($typeData[$damageDirection] as $damageType) {
@@ -28,7 +27,6 @@ class StrengthsWeaknessTag extends Component
                 }
             }
         }
-
         return $processed;
     }
 
