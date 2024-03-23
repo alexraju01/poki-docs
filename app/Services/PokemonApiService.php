@@ -224,8 +224,7 @@ class PokemonApiService
     }
 
 //  ======================= Evolutions ==================================
-    public function showEvolutions($name)
-{
+    public function showEvolutions($name){
     $cacheKey = "pokemon_evolutions_with_levels_{$name}";
     $evolutions = Cache::remember($cacheKey, now()->addDay(), function () use ($name) {
         $speciesResponse = Http::get("https://pokeapi.co/api/v2/pokemon-species/{$name}");
@@ -237,8 +236,7 @@ class PokemonApiService
     return $evolutions;
 }
 
-protected function fetchEvolutions($evolutionNode, $level = null)
-{
+protected function fetchEvolutions($evolutionNode, $level = 1){
     $evolutions = collect();
     foreach ($evolutionNode as $evolution) {
         $speciesName = $evolution['species']['name'];
@@ -247,7 +245,6 @@ protected function fetchEvolutions($evolutionNode, $level = null)
         $evolutionDetails = collect($evolution['evolution_details'])->first();
         $evolvesAtLevel = $evolutionDetails ? $evolutionDetails['min_level'] : null;
 
-        // dd($evolutionDetails);
         $evolutions->push([
             'name' => $speciesName,
             'image_url' => $pokemonData['sprites']['front_default'],
