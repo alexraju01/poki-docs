@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class PokemonStats extends Component
+class Preloader extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class PokemonStats extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.pokemon-stats');
+        return view('components.preloader');
     }
 }

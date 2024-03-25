@@ -197,4 +197,45 @@
         bottom: 5%;
         display: inline-flex;
     }
+
+    /* ################### Move Set  ###################*/
+    .d-moveSet {
+        display: flex;
+        /* width: 50%; */
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .d-abilities {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around; /* This centers the abilities. Adjust as needed */
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .d-ability {
+        flex: 1 1 100%; /* Abilities take full width */
+        text-align: center; /* Center the text */
+        /* line-height: auto; */
+        margin-bottom: 1rem; /* Add some bottom margin */
+    }
+
+    .d-moves {
+        display: grid;
+        grid-template-columns: repeat(
+            auto-fill,
+            minmax(18rem, 1fr)
+        ); /* Create a responsive grid */
+        gap: 1rem; /* Space between items */
+        margin: 0 4rem;
+        font-size: 2rem;
+    }
+
+    .d-move {
+        text-align: center; /* Center the text within each move */
+        padding: 0.5rem; /* Padding inside each move for spacing */
+        border: 0.1rem solid #ccc; /* Optional: Adds a border to each move */
+        border-radius: 0.8rem; /* Optional: Rounds the corners of the borders */
+    }
 }

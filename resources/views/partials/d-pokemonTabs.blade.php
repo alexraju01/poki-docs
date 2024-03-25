@@ -1,9 +1,8 @@
 <div class="d-tab-section" x-data="{ tab: 'description' }">
-
     <div class="d-tabs">
         <button class="d-tab-button-{{ $pokemonInfo['types'][0] }}" :class="{'active': tab === 'description'}" @click="tab = 'description'">Description</button>
         <button class="d-tab-button-{{ $pokemonInfo['types'][0] }}" :class="{'active': tab === 'evolution'}" @click="tab = 'evolution'">Evolution</button>
-        <button class="d-tab-button-{{ $pokemonInfo['types'][0] }}" :class="{'active': tab === 'skillset'}" @click="tab = 'skillset'">Skill Set</button>
+        <button class="d-tab-button-{{ $pokemonInfo['types'][0] }}" :class="{'active': tab === 'moveSet'}" @click="tab = 'moveSet'">Skill Set</button>
         {{-- <button class="d-tab-button"></button> --}}
     </div>
     
@@ -69,28 +68,36 @@
     
     
     <div class="evolution" x-show="tab === 'evolution'">
-        <p>Evolution Path Evolution Path</p>
+        <p>Evolution Path</p>
         <div class="d-evolution-container">
-            {{-- Display evolutions here --}}
-            @foreach ($pokemonInfo['evolutions'] as $evolution)
-            <div class="evolution">
-                <p>{{$evolution['name']}}</p>
-                <img src="{{$evolution['image_url']}}" alt="">
-            </div>
-                {{-- Your evolution display logic --}}
-            @endforeach
+            @forelse ($pokemonInfo['evolutions'] as $evolution)
+                <div class="evolution">
+                    <p>{{ $evolution['name'] }}</p>
+                    <img src="{{ $evolution['image_url'] }}" alt="{{ $evolution['name'] }}">
+                </div>
+            @empty
+                <div class="no-evolution">
+                    <p>This Pokémon does not evolve.</p>
+                </div>
+            @endforelse
         </div>
     </div>
+    
 
-    <div class="skillsets" x-show="tab === 'skillset'">
-        <p>Skill Set Skill Set</p>
-        <div class="d-img-container">
-            <img
-            class="poke-sprite poke-backdrop-{{ $pokemonInfo['types'][0] }}"
-            src="{{ $pokemonInfo['sprite'] }}"
-            alt="Pokemon Image"/>
-            {{-- <span class="poke-genus">{{ $pokemonInfo['genus'] }}</span> --}}
-        
+    {{-- ######################## Move Set ########################--}}
+    <div class="d-moveSet" x-show="tab === 'moveSet'">
+        <div class="d-abilities">
+            @foreach($pokemonInfo['ability'] as $ability)
+                <div class="d-ability"><p>{{ $ability}}</p></div>
+            @endforeach
+        </div>
+
+        <div class="d-moves">
+            @foreach($pokemonInfo['moves'] as $move)
+                <div class="d-move">
+                    <p>{{ucFirst($move['name'])}}</p>
+                </div>
+            @endforeach
         </div>
     </div>
 </div>

@@ -50,7 +50,7 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background-image: url("/images/pokedex.svg");
+    /* background-image: url("/images/pokedex.svg"); */
     background-size: cover;
     opacity: 0.25;
     transform: rotate(10deg);
@@ -130,6 +130,7 @@
 /*  */
 .stats-container {
     width: 100%;
+    width: 100vw;
     padding: 0 2rem;
     display: flex;
     flex-direction: column;
