@@ -201,52 +201,69 @@
     /* ################### Evolutions ################### */
     .d-evolution-container {
         display: flex;
-        gap: 0 12rem;
-        /* background-color: aqua; */
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
     }
 
-    .d-arrow {
-        width: 10rem;
+    .evolution {
+        height: 50%;
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .evolution img {
+        height: auto;
+        width: 20rem;
+        image-rendering: pixelated;
+    }
+
+    .icon-container {
+        width: 50px;
+        height: 50px;
+        font-size: 30px;
+        display: flex;
+        justify-content: center; /* Centers the icon horizontally */
+        align-items: center; /* Centers the icon vertically */
     }
 
     /* ################### Move Set  ###################*/
     .d-moveSet {
         display: flex;
-        /* width: 50%; */
         flex-direction: column;
         width: 90%;
     }
 
     .d-abilities {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around; /* This centers the abilities. Adjust as needed */
-        padding: 10px;
-        box-sizing: border-box;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+        gap: 1rem;
+        margin: 0 calc((90% / 2) - 18rem);
+        font-size: 2rem;
     }
 
     .d-ability {
-        flex: 1 1 100%; /* Abilities take full width */
-        text-align: center; /* Center the text */
-        /* line-height: auto; */
-        margin-bottom: 1rem; /* Add some bottom margin */
+        margin-bottom: 1rem;
+        text-align: center;
+        padding: 0.5rem;
+        border: 0.1rem solid #ccc;
+        border-radius: 0.8rem;
     }
 
     .d-moves {
         display: grid;
-        grid-template-columns: repeat(
-            auto-fill,
-            minmax(18rem, 1fr)
-        ); /* Create a responsive grid */
-        gap: 1rem; /* Space between items */
+        grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+        gap: 1rem;
         margin: 0 4rem;
         font-size: 2rem;
     }
 
     .d-move {
-        text-align: center; /* Center the text within each move */
-        padding: 0.5rem; /* Padding inside each move for spacing */
-        border: 0.1rem solid #ccc; /* Optional: Adds a border to each move */
-        border-radius: 0.8rem; /* Optional: Rounds the corners of the borders */
+        text-align: center;
+        padding: 0.5rem;
+        border: 0.1rem solid #ccc;
+        border-radius: 0.8rem;
     }
 }

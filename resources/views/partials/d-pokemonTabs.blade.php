@@ -76,7 +76,10 @@
                     <p>{{ $evolution['name'] }}</p>
                 </div>
                 @if (!$loop->last)
-                <i class=" d-arrow fa-solid fa-arrow-right"></i>
+                <div class="icon-container">
+                    <i class="fa fa-icon fa-arrow-right"></i>
+                  </div>
+                  
                 @endif
             @empty
                 <div class="no-evolution">
