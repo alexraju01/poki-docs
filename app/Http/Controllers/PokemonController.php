@@ -5,7 +5,6 @@ use App\Services\PokemonApiServices;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
-
 class PokemonController extends Controller
 {
   
@@ -19,7 +18,7 @@ class PokemonController extends Controller
     }
 
     public function index(){
-    $limit=10000;
+    $limit=1000;
     $pokemons = $this->pokemonApiService->fetchPokemons($limit);
     return view('pokemons.index', ['pokemons' => $pokemons,'limit' => $limit]);
 }

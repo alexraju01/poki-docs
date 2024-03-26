@@ -2,7 +2,6 @@
 
 namespace App\Services;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
@@ -46,10 +45,8 @@ protected function addImgAndIdToData($data) {
 
     //  ############################ Fetching Pokemon Data #########################
     public function fetchPokemonData($id){
-        return Cache::remember("pokemon_data_{$id}", now()->addHours(24), function () use ($id) {
             $response = Http::get("https://pokeapi.co/api/v2/pokemon/{$id}");
             return $response->json();
-        });
     }
 
     // ============================== Logics Of Stat Bars =============================
@@ -123,10 +120,8 @@ protected function addImgAndIdToData($data) {
     
     // =========================== Fetching Pokemon Types EndPoint ===========================
     public function fetchTypeById($id) {
-        return Cache::remember("pokemon_type_{$id}", now()->addHours(24), function () use ($id) {
             $response = Http::get("{$this->baseUrl}/type/{$id}");
             return $response->json();
-        });
     }
 
      // ============================== Strengths And Weakness =============================
@@ -162,8 +157,6 @@ protected function addImgAndIdToData($data) {
 //  ======================= Evolutions ==================================
 public function showEvolutions($name)
     {
-        // $cacheKey = "pokemon_evolutions_with_levels_{$name}";
-        // $evolutions = Cache::remember($cacheKey, now()->addDay(), function () use ($name) {
             $speciesResponse = Http::get("https://pokeapi.co/api/v2/pokemon-species/{$name}");
             if (!$speciesResponse->successful()) {
                 return collect(); // Early return on failed API call
@@ -172,9 +165,6 @@ public function showEvolutions($name)
             $evolutionData = Http::get($evolutionChainUrl)->json();
 
             return $this->fetchEvolutions(collect([$evolutionData['chain']]));
-        // });
-
-        // return response()->json($evolutions);
     }
 
     protected function fetchEvolutions($evolutionNodes, $level = 1)
