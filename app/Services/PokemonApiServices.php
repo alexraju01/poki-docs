@@ -103,9 +103,9 @@ protected function addImgAndIdToData($data) {
     $levelUpMove = $this->getFirstLevelUpMove($move['version_group_details']);
     if ($levelUpMove) {
         // Fetch move details from PokéAPI to get the type
-        $moveDetails = Cache::rememberForever("move_details_{$move['move']['name']}", function () use ($move) {
-            return Http::get($move['move']['url'])->json();
-        });
+        // $moveDetails = Cache::rememberForever("move_details_{$move['move']['name']}", function () use ($move) {
+            $moveDetails = Http::get($move['move']['url'])->json();
+        // });
         
         $moveType = $moveDetails['type']['name'] ?? 'unknown'; // Extracting the move type
 
