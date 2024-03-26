@@ -2,7 +2,7 @@
 
 namespace App\Services;
 use GuzzleHttp\Client;
-// use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
@@ -46,10 +46,10 @@ protected function addImgAndIdToData($data) {
 
     //  ############################ Fetching Pokemon Data #########################
     public function fetchPokemonData($id){
-        // return Cache::remember("pokemon_data_{$id}", now()->addHours(24), function () use ($id) {
+        return Cache::remember("pokemon_data_{$id}", now()->addHours(24), function () use ($id) {
             $response = Http::get("https://pokeapi.co/api/v2/pokemon/{$id}");
             return $response->json();
-        // });
+        });
     }
 
     // ============================== Logics Of Stat Bars =============================
@@ -123,10 +123,10 @@ protected function addImgAndIdToData($data) {
     
     // =========================== Fetching Pokemon Types EndPoint ===========================
     public function fetchTypeById($id) {
-        // return Cache::remember("pokemon_type_{$id}", now()->addHours(24), function () use ($id) {
+        return Cache::remember("pokemon_type_{$id}", now()->addHours(24), function () use ($id) {
             $response = Http::get("{$this->baseUrl}/type/{$id}");
             return $response->json();
-        // });
+        });
     }
 
      // ============================== Strengths And Weakness =============================
@@ -160,45 +160,48 @@ protected function addImgAndIdToData($data) {
     }
 
 //  ======================= Evolutions ==================================
-public function showEvolutions($name){
-    // $cacheKey = "pokemon_evolutions_with_levels_{$name}";
-    // $evolutions = Cache::remember($cacheKey, now()->addHour(), function () use ($name) {
-        // Get species information
-        $speciesResponse = Http::get("https://pokeapi.co/api/v2/pokemon-species/{$name}");
-
-        // Check if the response is not null and contains the expected 'evolution_chain' data
-        if ($speciesResponse->json() && isset($speciesResponse->json()['evolution_chain']['url'])) {
+public function showEvolutions($name)
+    {
+        // $cacheKey = "pokemon_evolutions_with_levels_{$name}";
+        // $evolutions = Cache::remember($cacheKey, now()->addDay(), function () use ($name) {
+            $speciesResponse = Http::get("https://pokeapi.co/api/v2/pokemon-species/{$name}");
+            if (!$speciesResponse->successful()) {
+                return collect(); // Early return on failed API call
+            }
             $evolutionChainUrl = $speciesResponse->json()['evolution_chain']['url'];
             $evolutionData = Http::get($evolutionChainUrl)->json();
 
-            return $this->fetchEvolutions([$evolutionData['chain']]);
-        } 
-        return []; // or any other appropriate response
- 
-}
+            return $this->fetchEvolutions(collect([$evolutionData['chain']]));
+        // });
 
+        // return response()->json($evolutions);
+    }
 
+    protected function fetchEvolutions($evolutionNodes, $level = 1)
+    {
+        $evolutions = collect();
 
-protected function fetchEvolutions($evolutionNode, $level = 1){
-    return collect($evolutionNode)->flatMap(function ($evolution) {
-        $speciesName = $evolution['species']['name'] ?? null;
-        if ($speciesName) {
-            $pokemonData = Http::get("https://pokeapi.co/api/v2/pokemon/{$speciesName}");
+        foreach ($evolutionNodes as $evolutionNode) {
+            $speciesName = $evolutionNode['species']['name'];
+            $pokemonData = Http::get("https://pokeapi.co/api/v2/pokemon/{$speciesName}")->json();
+            if (empty($pokemonData)) {
+                continue; // Skip if no data is returned
+            }
 
-            if ($pokemonData->successful()) {
-                $evolutionDetails = collect($evolution['evolution_details'])->first();
-                $evolvesAtLevel = $evolutionDetails['min_level'] ?? null;
+            $evolutionDetails = collect($evolutionNode['evolution_details'])->first();
+            $evolvesAtLevel = $evolutionDetails ? $evolutionDetails['min_level'] : null;
 
-                return [[
-                    'name' => $speciesName,
-                    'image_url' => $pokemonData['sprites']['front_default'],
-                    'evolves_at_level' => $evolvesAtLevel,
-                ]];
+            $evolutions->push([
+                'name' => $speciesName,
+                'image_url' => $pokemonData['sprites']['front_default'],
+                'evolves_at_level' => $evolvesAtLevel,
+            ]);
+
+            if (!empty($evolutionNode['evolves_to'])) {
+                $evolutions = $evolutions->merge($this->fetchEvolutions(collect($evolutionNode['evolves_to']), $evolvesAtLevel));
             }
         }
 
-        // Recurse if there are further evolutions.
-        return !empty($evolution['evolves_to']) ? $this->fetchEvolutions($evolution['evolves_to']) : collect();
-    });
-}
+        return $evolutions;
+    }
 }
