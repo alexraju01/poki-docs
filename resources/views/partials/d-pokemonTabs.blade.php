@@ -68,13 +68,16 @@
     
     
     <div class="evolution" x-show="tab === 'evolution'">
-        <p>Evolution Path</p>
+        <h2>Evolution Path</h2>
         <div class="d-evolution-container">
             @forelse ($pokemonInfo['evolutions'] as $evolution)
                 <div class="evolution">
-                    <p>{{ $evolution['name'] }}</p>
                     <img src="{{ $evolution['image_url'] }}" alt="{{ $evolution['name'] }}">
+                    <p>{{ $evolution['name'] }}</p>
                 </div>
+                @if (!$loop->last)
+                <i class=" d-arrow fa-solid fa-arrow-right"></i>
+                @endif
             @empty
                 <div class="no-evolution">
                     <p>This Pokémon does not evolve.</p>

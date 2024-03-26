@@ -198,6 +198,17 @@
         display: inline-flex;
     }
 
+    /* ################### Evolutions ################### */
+    .d-evolution-container {
+        display: flex;
+        gap: 0 12rem;
+        /* background-color: aqua; */
+    }
+
+    .d-arrow {
+        width: 10rem;
+    }
+
     /* ################### Move Set  ###################*/
     .d-moveSet {
         display: flex;
