@@ -98,6 +98,10 @@ $colors: (
         background-color: $color;
         color: black;
     }
+    .d-move-#{$type} {
+        color: $color;
+        border: 0.1rem solid $color;
+    }
 }
 
 // .tab-button.active::after {

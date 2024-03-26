@@ -27,7 +27,7 @@ class PokemonController extends Controller
     public function show($id)
 {
     $basicInfo = $this->pokemonApiService->fetchPokemonData($id);
-    // dd($basicInfo);
+    // dd($basicInfo['moves']);
     $types = collect($basicInfo['types'])->pluck('type.name')->all();
     $speciesInfo = Http::get($basicInfo['species']['url'])->json();
     $genusType = collect($speciesInfo['genera'] ?? [])->firstWhere('language.name', 'en')['genus'] ?? null;

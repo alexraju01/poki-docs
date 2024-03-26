@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-BfnxIhJ3.css",
+    "file": "assets/app-BLBXNdxc.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -14,7 +14,7 @@
     ]
   },
   "resources/scss/pokeTypes.scss": {
-    "file": "assets/pokeTypes-CTQnFhXK.css",
+    "file": "assets/pokeTypes-D2aXK18c.css",
     "src": "resources/scss/pokeTypes.scss",
     "isEntry": true
   }

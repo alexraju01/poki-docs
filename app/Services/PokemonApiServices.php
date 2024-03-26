@@ -2,6 +2,7 @@
 
 namespace App\Services;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
@@ -27,11 +28,9 @@ public function fetchPokemons($limit){
 
 public function fetchPokemonByType($type){
     $response = Http::get("{$this->baseUrl}/type/{$type}");
-
     $data = json_decode($response->getBody()->getContents(), true);
-    // dd(collect($data['pokemon'])->take(3));
     return $data['pokemon'] ?? [];
-} 
+}
 
 // =========================== Adding Image And ID To Data ===========================
 protected function addImgAndIdToData($data) {
@@ -90,6 +89,7 @@ protected function addImgAndIdToData($data) {
 
     public function fetchPokemonMoves($moves)
     {
+        // dd($moves);
         return collect($moves)
             ->map(fn($move) => $this->prepareMove($move))
             ->filter()
@@ -99,18 +99,31 @@ protected function addImgAndIdToData($data) {
     // ########################### Preparing Moves Data #############################
 
     private function prepareMove($move)
-    {
-        $levelUpMove = $this->getFirstLevelUpMove($move['version_group_details']);
-        return $levelUpMove ? [
+{
+    $levelUpMove = $this->getFirstLevelUpMove($move['version_group_details']);
+    if ($levelUpMove) {
+        // Fetch move details from PokéAPI to get the type
+        $moveDetails = Cache::rememberForever("move_details_{$move['move']['name']}", function () use ($move) {
+            return Http::get($move['move']['url'])->json();
+        });
+        
+        $moveType = $moveDetails['type']['name'] ?? 'unknown'; // Extracting the move type
+
+        return [
             'name' => $move['move']['name'],
             'url' => $move['move']['url'],
             'lvl_req' => $levelUpMove['level_learned_at'],
-        ] : null;
+            'type' => $moveType, // Now includes the move type fetched from the PokéAPI
+        ];
     }
+
+    return null;
+}
 
     // ################# Repeated Items In The list, Only Returning One Item Back ##################
     private function getFirstLevelUpMove($versionGroupDetails)
     {
+        // dd($versionGroupDetails);
         return collect($versionGroupDetails)
             ->where('move_learn_method.name', 'level-up')
             ->sortBy('level_learned_at')
@@ -156,42 +169,55 @@ protected function addImgAndIdToData($data) {
 
 //  ======================= Evolutions ==================================
 public function showEvolutions($name)
-    {
-            $speciesResponse = Http::get("https://pokeapi.co/api/v2/pokemon-species/{$name}");
-            if (!$speciesResponse->successful()) {
-                return collect(); // Early return on failed API call
-            }
-            $evolutionChainUrl = $speciesResponse->json()['evolution_chain']['url'];
-            $evolutionData = Http::get($evolutionChainUrl)->json();
-
-            return $this->fetchEvolutions(collect([$evolutionData['chain']]));
+{
+    $speciesResponse = Http::get("https://pokeapi.co/api/v2/pokemon-species/{$name}");
+    if (!$speciesResponse->successful()) {
+        return collect(); // Early return on failed API call
     }
+    $evolutionChainUrl = $speciesResponse->json()['evolution_chain']['url'];
+    $evolutionData = Http::get($evolutionChainUrl)->json();
 
-    protected function fetchEvolutions($evolutionNodes, $level = 1)
-    {
-        $evolutions = collect();
+    // Pass a starting level of 1 for the base Pokémon
+    return $this->fetchEvolutions(collect([$evolutionData['chain']]), 1);
+}
 
-        foreach ($evolutionNodes as $evolutionNode) {
-            $speciesName = $evolutionNode['species']['name'];
-            $pokemonData = Http::get("https://pokeapi.co/api/v2/pokemon/{$speciesName}")->json();
-            if (empty($pokemonData)) {
-                continue; // Skip if no data is returned
-            }
+protected function fetchEvolutions($evolutionNodes, $level = 1)
+{
+    $evolutions = collect();
 
-            $evolutionDetails = collect($evolutionNode['evolution_details'])->first();
-            $evolvesAtLevel = $evolutionDetails ? $evolutionDetails['min_level'] : null;
-
-            $evolutions->push([
-                'name' => $speciesName,
-                'image_url' => $pokemonData['sprites']['front_default'],
-                'evolves_at_level' => $evolvesAtLevel,
-            ]);
-
-            if (!empty($evolutionNode['evolves_to'])) {
-                $evolutions = $evolutions->merge($this->fetchEvolutions(collect($evolutionNode['evolves_to']), $evolvesAtLevel));
-            }
+    foreach ($evolutionNodes as $evolutionNode) {
+        $speciesName = $evolutionNode['species']['name'];
+        $pokemonData = $this->fetchPokemonData($speciesName);
+        if (empty($pokemonData)) {
+            continue; // Skip if no data is returned
         }
 
-        return $evolutions;
+        // Extracting the types into an array
+        $types = collect($pokemonData['types'])->map(function ($typeEntry) {
+            return $typeEntry['type']['name']; // Gets the type name
+        })->toArray(); // Converts the collection to an array
+
+        $evolutionDetails = collect($evolutionNode['evolution_details'])->first();
+        $evolvesAtLevel = $evolutionDetails ? $evolutionDetails['min_level'] : $level; // Use provided level if min_level is not specified
+
+        $evolutions->push([
+            'name' => $speciesName,
+            'image_url' => $pokemonData['sprites']['front_default'],
+            'evolves_at_level' => $evolvesAtLevel,
+            'types' => $types,
+        ]);
+
+        if (!empty($evolutionNode['evolves_to'])) {
+            // Pass the evolvesAtLevel for the next evolution stage
+            $evolutions = $evolutions->merge($this->fetchEvolutions(collect($evolutionNode['evolves_to']), $evolvesAtLevel));
+        }
     }
+
+    return $evolutions;
+}
+
+
+
+
+
 }
