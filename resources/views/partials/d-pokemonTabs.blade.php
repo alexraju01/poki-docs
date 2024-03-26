@@ -1,9 +1,8 @@
-<div class="d-tab-section" x-data="{ tab: 'evolution' }">
+<div class="d-tab-section" x-data="{ tab: 'description' }">
     <div class="d-tabs">
         <button class="d-tab-button-{{ $pokemonInfo['types'][0] }}" :class="{'active': tab === 'description'}" @click="tab = 'description'">Description</button>
         <button class="d-tab-button-{{ $pokemonInfo['types'][0] }}" :class="{'active': tab === 'evolution'}" @click="tab = 'evolution'">Evolution</button>
         <button class="d-tab-button-{{ $pokemonInfo['types'][0] }}" :class="{'active': tab === 'moveSet'}" @click="tab = 'moveSet'">Skill Set</button>
-        {{-- <button class="d-tab-button"></button> --}}
     </div>
     
     
@@ -88,28 +87,7 @@
             </div>
             @endforelse
           </div>
-
-
-        {{-- <div class="d-evolution-container">
-            @forelse ($pokemonInfo['evolutions'] as $evolution)
-                <div class="evolution">
-                    <img src="{{ $evolution['image_url'] }}" alt="{{ $evolution['name'] }}">
-                    <p>{{ $evolution['name'] }}</p>
-                </div>
-                @if (!$loop->last)
-                <div class="icon-container">
-                    <i class="fa fa-icon fa-arrow-right"></i>
-                  </div>
-                  
-                @endif
-            @empty
-                <div class="no-evolution">
-                    <p>This Pokémon does not evolve.</p>
-                </div>
-            @endforelse
-        </div> --}}
     </div>
-    
 
     {{-- ######################## Move Set ########################--}}
     <div class="d-moveSet" x-show="tab === 'moveSet'">
@@ -120,12 +98,12 @@
         </div>
 
         <div class="d-moves">
-            {{-- @foreach($pokemonInfo['moves'] as $move)
+            @foreach($pokemonInfo['moves'] as $move)
                 <div class="d-move d-move-{{$move['type']}}">
                     <p>{{ucFirst($move['name'])}}</p>
                     <p>{{$move['type']}}</p>
                 </div>
-            @endforeach --}}
+            @endforeach
         </div>
     </div>
 </div>
