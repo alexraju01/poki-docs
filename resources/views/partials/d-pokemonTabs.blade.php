@@ -1,4 +1,4 @@
-<div class="d-tab-section" x-data="{ tab: 'description' }">
+<div class="d-tab-section" x-data="{ tab: 'evolution' }">
     <div class="d-tabs">
         <button class="d-tab-button-{{ $pokemonInfo['types'][0] }}" :class="{'active': tab === 'description'}" @click="tab = 'description'">Description</button>
         <button class="d-tab-button-{{ $pokemonInfo['types'][0] }}" :class="{'active': tab === 'evolution'}" @click="tab = 'evolution'">Evolution</button>
@@ -75,17 +75,18 @@
               <div class="d-evolution-level">lv: {{$evolution['evolves_at_level']}}</div>
               <div class="d-evolution-name">{{$evolution['name']}}</div>
               <div>
-                  @foreach ($evolution['types'] as $type)
-                  <button class="button-{{  $type}}">{{ ucfirst( $type) }}</button>
-                  @endforeach
+                <x-button-type :evolution="$evolution"></x-button-type>
                 </div>
             </div>
+            @if (!$loop->last)
+            <p class="d-evo-arrow">></p>
+            @endif
             @empty
             <div class="no-evolution">
                 <p>This Pokémon does not evolve.</p>
             </div>
             @endforelse
-          </div>
+        </div>
     </div>
 
     {{-- ######################## Move Set ########################--}}

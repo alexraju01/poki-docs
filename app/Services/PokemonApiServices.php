@@ -232,10 +232,11 @@ protected function fetchEvolutions($evolutionNodes, $level = 1)
 
         $evolutionDetails = collect($evolutionNode['evolution_details'])->first();
         $evolvesAtLevel = $evolutionDetails ? $evolutionDetails['min_level'] : $level; // Use provided level if min_level is not specified
-
+        // dd($pokemonData);
+        // "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{$pokemonId}.png";
         $evolutions->push([
             'name' => $speciesName,
-            'image_url' => $pokemonData['sprites']['front_default'],
+            'image_url' => $pokemonData['sprites']['other']['official-artwork']['front_default'],
             'evolves_at_level' => $evolvesAtLevel,
             'types' => $types,
         ]);

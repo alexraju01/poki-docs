@@ -44,7 +44,6 @@
         background-size: cover;
         opacity: 0.25;
         transform: rotate(10deg);
-        /* background-color: pink; */
     }
 
     .d-img-container img {
@@ -201,17 +200,16 @@
     /* ################### Evolutions ################### */
     .d-evolution-container {
         display: flex;
-        background: #000;
+        /* background: #000; */
         padding: 10px;
         width: 85vw;
         justify-content: center;
-        /* justify-content: space-evenly; */
     }
     .d-evolution {
         text-align: center;
         /* justify-content: right; */
         min-width: 28rem;
-        margin: 1rem;
+        /* margin: 1rem; */
     }
     .d-evolution img {
         display: block;
@@ -237,6 +235,12 @@
         padding: 2px 5px;
         margin: 2px;
         border-radius: 5px;
+    }
+
+    .d-evo-arrow {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5rem;
     }
 
     /* ################### Move Set  ###################*/
