@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h1 id="Title">Pokemon List (Topsssssss {{$limit}})</h1>
+<h1 id="Title">Pokemon List (Tops {{$limit}})</h1>
     <div class="card-container">
         @foreach($pokemons as $pokemon)
         <a href="{{ route('pokemons.show', ['pokemon' => $pokemon['id']]) }}">

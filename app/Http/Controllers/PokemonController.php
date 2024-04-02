@@ -39,7 +39,7 @@ class PokemonController extends Controller
             // If not found in cache, fetch data from the API
             $basicInfo = $this->pokemonApiService->fetchPokemonData($id);
             $types = collect($basicInfo['types'])->pluck('type.name')->all();
-            $speciesInfo = Http::get($basicInfo['species']['url'])->json();
+            $speciesInfo = $this->pokemonApiService->fetchPokemonSpecies($id);
             $genusType = collect($speciesInfo['genera'] ?? [])->firstWhere('language.name', 'en')['genus'] ?? null;
             $statsBarWithColor = $this->pokemonApiService->percentageStatsBarWithColor($basicInfo['stats'], $types[0]);
             $strengthAndWeakness = $this->pokemonApiService->pokemonStrengthAndWeakness($id);

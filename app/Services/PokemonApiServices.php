@@ -26,6 +26,33 @@ public function fetchPokemons($limit){
     }
 }
 
+public function fetchAllPokemonIds()
+    {
+        $url = 'https://pokeapi.co/api/v2/pokemon?limit=1000'; // Starting URL
+        $allPokemonIds = [];
+
+        while ($url) {
+            $response = Http::get($url);
+
+            if ($response->successful()) {
+                $data = $response->json();
+                foreach ($data['results'] as $pokemon) {
+                    // Extract and store the Pokemon ID from the URL
+                    $pokemonId = basename($pokemon['url']);
+                    $allPokemonIds[] = $pokemonId;
+                }
+
+                // Set the next URL for the next iteration, or null if at the end
+                $url = $data['next'] ?? null;
+            } else {
+                // throw new Exception('Failed to fetch data from PokéAPI: ' . $response->status());
+            }
+        }
+
+        return $allPokemonIds;
+    }
+
+
 public function fetchPokemonByType($type){
     $response = Http::get("{$this->baseUrl}/type/{$type}");
     $data = json_decode($response->getBody()->getContents(), true);
@@ -47,6 +74,12 @@ protected function addImgAndIdToData($data) {
             $response = Http::get("https://pokeapi.co/api/v2/pokemon/{$id}");
             return $response->json();
     }
+
+    public function fetchPokemonSpecies($id){
+        $pokemonInfo = $this->fetchPokemonData($id);
+        // dd($pokemonInfo);
+        return Http::get($pokemonInfo['species']['url'])->json();
+     }
 
     // ============================== Logics Of Stat Bars =============================
     protected function calculateStatPercentage($baseStat, $maxStatValue = 255) {

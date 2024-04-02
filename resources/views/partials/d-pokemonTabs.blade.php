@@ -75,7 +75,6 @@
               <div class="d-evolution-level">lv: {{$evolution['evolves_at_level']}}</div>
               <div class="d-evolution-name">{{$evolution['name']}}</div>
               <div>
-                {{-- {{dd($evolution['types'])}} --}}
                   @foreach ($evolution['types'] as $type)
                   <button class="button-{{  $type}}">{{ ucfirst( $type) }}</button>
                   @endforeach

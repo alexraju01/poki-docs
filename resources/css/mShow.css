@@ -17,20 +17,6 @@
     min-height: 100%;
 }
 
-.go-back-home {
-    position: absolute;
-    left: 5%;
-    top: 0;
-    z-index: 5;
-    fill: #434949;
-    /* background-image: url("/images/go-back-home.svg"); */
-}
-
-.go-back-home:hover {
-    color: #0f2da3;
-    /* background-image: url("/images/go-back-home.svg"); */
-}
-
 .name-section {
     display: none;
 }

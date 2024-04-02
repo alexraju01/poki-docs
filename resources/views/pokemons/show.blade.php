@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+    <a class="go-back" href="{{route('pokemons.index')}}">
+        <i class="fa-solid fa-arrow-left"></i>
+    </a>
     <div class="pokemon">
         <div class="poke-profile">
 

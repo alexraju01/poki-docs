@@ -6,3 +6,7 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote')->hourly();
+
+// Schedule::command('app:cache-all-pokemon')->cron('0 0 */90 * *');
+Schedule::command('app:cache-all-pokemon')->everyMinute();
+
