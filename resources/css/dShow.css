@@ -198,6 +198,10 @@
     }
 
     /* ################### Evolutions ################### */
+    .d-evolution h2 {
+        text-align: center;
+    }
+
     .d-evolution-container {
         display: flex;
         /* background: #000; */
@@ -205,13 +209,13 @@
         width: 85vw;
         justify-content: center;
     }
-    .d-evolution {
+    .d-evolution-box {
         text-align: center;
         /* justify-content: right; */
         min-width: 28rem;
         /* margin: 1rem; */
     }
-    .d-evolution img {
+    .d-evolution-box img {
         display: block;
         margin: 0 auto;
         height: auto;
@@ -278,5 +282,17 @@
         text-align: center;
         padding: 0.5rem;
         border-radius: 0.8rem;
+        position: relative;
+    }
+
+    .d-move-lvl {
+        position: absolute;
+        top: 0;
+        width: auto;
+        /* height: 10; */
+        font-size: 1.8rem;
+        padding: 1rem;
+        /* background-color: #4e8234; */
+        /* border-radius: 1rem; */
     }
 }

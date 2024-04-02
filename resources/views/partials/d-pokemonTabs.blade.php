@@ -1,4 +1,4 @@
-<div class="d-tab-section" x-data="{ tab: 'evolution' }">
+<div class="d-tab-section" x-data="{ tab: 'moveSet' }">
     <div class="d-tabs">
         <button class="d-tab-button-{{ $pokemonInfo['types'][0] }}" :class="{'active': tab === 'description'}" @click="tab = 'description'">Description</button>
         <button class="d-tab-button-{{ $pokemonInfo['types'][0] }}" :class="{'active': tab === 'evolution'}" @click="tab = 'evolution'">Evolution</button>
@@ -65,21 +65,21 @@
     </div>
 
     
-    
-    <div class="evolution" x-show="tab === 'evolution'">
+    {{-- ####################### Desktop Evolution ####################### --}}
+    <div class="d-evolution" x-show="tab === 'evolution'">
         <h2>Evolution Path</h2>
         <div class="d-evolution-container">
             @forelse ($pokemonInfo['evolutions'] as $evolution)
-            <div class="d-evolution">
+            <div class="d-evolution-box">
               <img src="{{ $evolution['image_url'] }}" alt="{{ $evolution['name'] }}"/>
               <div class="d-evolution-level">lv: {{$evolution['evolves_at_level']}}</div>
-              <div class="d-evolution-name">{{$evolution['name']}}</div>
+              <div class="d-evolution-name">{{ucFirst($evolution['name'])}}</div>
               <div>
                 <x-button-type :evolution="$evolution"></x-button-type>
                 </div>
             </div>
             @if (!$loop->last)
-            <p class="d-evo-arrow">></p>
+                <i class=" d-evo-arrow fa-solid fa-arrow-right"></i>
             @endif
             @empty
             <div class="no-evolution">
@@ -89,19 +89,21 @@
         </div>
     </div>
 
-    {{-- ######################## Move Set ########################--}}
+    {{-- ####################### Desktop Move Set ####################### --}}
     <div class="d-moveSet" x-show="tab === 'moveSet'">
         <div class="d-abilities">
             @foreach($pokemonInfo['ability'] as $ability)
-                <div class="d-ability"><p>{{ $ability}}</p></div>
+                <div class="d-ability"><p>{{ucFirst($ability)}}</p></div>
             @endforeach
         </div>
 
         <div class="d-moves">
+            {{-- {{dd($pokemonInfo['moves'])}} --}}
             @foreach($pokemonInfo['moves'] as $move)
                 <div class="d-move d-move-{{$move['type']}}">
                     <p>{{ucFirst($move['name'])}}</p>
-                    <p>{{$move['type']}}</p>
+                    <p class="d-move-type">{{ucFirst($move['type'])}}</p>
+                    <p class="d-move-lvl">{{$move['lvl_req']}}</p>
                 </div>
             @endforeach
         </div>
