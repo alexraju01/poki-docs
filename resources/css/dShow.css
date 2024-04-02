@@ -271,28 +271,25 @@
     }
 
     .d-moves {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+        display: flex;
+        flex-direction: column;
+        place-self: center;
         gap: 1rem;
-        margin: 0 4rem;
         font-size: 2rem;
+        overflow-y: auto;
+        max-height: 500px;
+
+        /* Hide scrollbar for IE, Edge, and Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
     }
 
     .d-move {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
         text-align: center;
         padding: 0.5rem;
         border-radius: 0.8rem;
         position: relative;
-    }
-
-    .d-move-lvl {
-        position: absolute;
-        top: 0;
-        width: auto;
-        /* height: 10; */
-        font-size: 1.8rem;
-        padding: 1rem;
-        /* background-color: #4e8234; */
-        /* border-radius: 1rem; */
     }
 }
