@@ -71,7 +71,7 @@
         <div class="d-evolution-container">
             @forelse ($pokemonInfo['evolutions'] as $evolution)
             <div class="d-evolution-box">
-              <img src="{{ $evolution['image_url'] }}" alt="{{ $evolution['name'] }}"/>
+              <img class = "poke-backdrop-{{ $pokemonInfo['types'][0] }}" src="{{ $evolution['image_url'] }}" alt="{{ $evolution['name'] }}"/>
               <div class="d-evolution-level">lv: {{$evolution['evolves_at_level']}}</div>
               <div class="d-evolution-name">{{ucFirst($evolution['name'])}}</div>
               <div>
@@ -97,15 +97,26 @@
             @endforeach
         </div>
 
+        
         <div class="d-moves">
-            {{-- {{dd($pokemonInfo['moves'])}} --}}
-            @foreach($pokemonInfo['moves'] as $move)
+            <div class="d-moveset-heading">
+                <p>Name</p>
+                <p>Lvl Req:</p>
+                <p>Type</p>
+                <p>Power</p>
+                <p>PP:</p>
+            </div>
+            <div class="d-moveset">
+                @foreach($pokemonInfo['moves'] as $move)
                 <div class="d-move d-move-{{$move['type']}}">
                     <p>{{ucFirst($move['name'])}}</p>
+                    <p class="d-move-lvl">lvl: {{$move['lvl_req']}}</p>
                     <p class="d-move-type">{{ucFirst($move['type'])}}</p>
-                    <p class="d-move-lvl">{{$move['lvl_req']}}</p>
+                    <p class="d-move-power">{{$move['power']}}</p>
+                    <p class="d-move-pp">{{$move['pp']}}</p>
                 </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
     </div>
 </div>

@@ -56,7 +56,7 @@ $colors: (
     }
 
     .poke-backdrop-#{$type} {
-        filter: drop-shadow(0rem 0rem 1.2rem rgba($color, 0.6));
+        filter: drop-shadow(0.1rem 0.1rem 2rem rgba($color, 0.8));
     }
 
     .type-indicator-#{$type} {

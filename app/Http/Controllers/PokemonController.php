@@ -43,6 +43,8 @@ class PokemonController extends Controller
             $genusType = collect($speciesInfo['genera'] ?? [])->firstWhere('language.name', 'en')['genus'] ?? null;
             $statsBarWithColor = $this->pokemonApiService->percentageStatsBarWithColor($basicInfo['stats'], $types[0]);
             $strengthAndWeakness = $this->pokemonApiService->pokemonStrengthAndWeakness($id);
+            // $this->pokemonApiService->fetchPM();
+            // dd($basicInfo['moves']);
 
             $englishDescription = collect($speciesInfo['flavor_text_entries'])
                 ->where('language.name', 'en')

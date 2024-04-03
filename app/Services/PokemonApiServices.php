@@ -75,9 +75,13 @@ protected function addImgAndIdToData($data) {
             return $response->json();
     }
 
+    public function fetchPM(){
+       $response = Http::get("https://pokeapi.co/api/v2/move/1/");
+       return $response->json(); 
+    }
+
     public function fetchPokemonSpecies($id){
         $pokemonInfo = $this->fetchPokemonData($id);
-        // dd($pokemonInfo);
         return Http::get($pokemonInfo['species']['url'])->json();
      }
 
@@ -120,9 +124,10 @@ protected function addImgAndIdToData($data) {
 
     // ########################### Fetching Moves #############################
 
+    
     public function fetchPokemonMoves($moves)
     {
-        // dd($moves);
+
         return collect($moves)
             ->map(fn($move) => $this->prepareMove($move))
             ->filter()
@@ -135,18 +140,26 @@ protected function addImgAndIdToData($data) {
 {
     $levelUpMove = $this->getFirstLevelUpMove($move['version_group_details']);
     if ($levelUpMove) {
-        // Fetch move details from PokéAPI to get the type
-        // $moveDetails = Cache::rememberForever("move_details_{$move['move']['name']}", function () use ($move) {
             $moveDetails = Http::get($move['move']['url'])->json();
+            $ExtraMoveDetails = collect($moveDetails)
+            ->only(['power', 'type','pp'])
+            ->mapWithKeys(function ($value , $key) {
+                return [$key => is_null($value) ? 'None': $value];
+            });
+            // dd($moveType = $moveDetails['type']['name'] ?? 'unknown');
+            // dd($ExtraMoveDetails['type']);
+
         // });
         
-        $moveType = $moveDetails['type']['name'] ?? 'unknown'; // Extracting the move type
-
+        // $moveType = $moveDetails['type']['name'] ?? 'unknown'; // Extracting the move type
+        // $movepower = $moveDetails['']
         return [
             'name' => $move['move']['name'],
             'url' => $move['move']['url'],
             'lvl_req' => $levelUpMove['level_learned_at'],
-            'type' => $moveType, // Now includes the move type fetched from the PokéAPI
+            'type' => $ExtraMoveDetails['type']['name'], // Now includes the move type fetched from the PokéAPI
+            'power' => $ExtraMoveDetails['power'],
+            'pp' => $ExtraMoveDetails['pp']
         ];
     }
 
@@ -156,7 +169,6 @@ protected function addImgAndIdToData($data) {
     // ################# Repeated Items In The list, Only Returning One Item Back ##################
     private function getFirstLevelUpMove($versionGroupDetails)
     {
-        // dd($versionGroupDetails);
         return collect($versionGroupDetails)
             ->where('move_learn_method.name', 'level-up')
             ->sortBy('level_learned_at')
@@ -193,7 +205,6 @@ protected function addImgAndIdToData($data) {
                 'no_damage_to' => collect($typeData['damage_relations']['no_damage_to'])->pluck('name')->all(),
             ];
         }
-        // dd($weaknesses);
         return [
             'strengths' => $strengths,
             'weaknesses' => $weaknesses,
@@ -232,8 +243,6 @@ protected function fetchEvolutions($evolutionNodes, $level = 1)
 
         $evolutionDetails = collect($evolutionNode['evolution_details'])->first();
         $evolvesAtLevel = $evolutionDetails ? $evolutionDetails['min_level'] : $level; // Use provided level if min_level is not specified
-        // dd($pokemonData);
-        // "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{$pokemonId}.png";
         $evolutions->push([
             'name' => $speciesName,
             'image_url' => $pokemonData['sprites']['other']['official-artwork']['front_default'],
