@@ -70,14 +70,14 @@
         <h2>Evolution Path</h2>
         <div class="d-evolution-container">
             @forelse ($pokemonInfo['evolutions'] as $evolution)
-            <div class="d-evolution-box">
-              <img class = "poke-backdrop-{{ $pokemonInfo['types'][0] }}" src="{{ $evolution['image_url'] }}" alt="{{ $evolution['name'] }}"/>
-              <div class="d-evolution-level">lv: {{$evolution['evolves_at_level']}}</div>
-              <div class="d-evolution-name">{{ucFirst($evolution['name'])}}</div>
-              <div>
-                <x-button-type :evolution="$evolution"></x-button-type>
+                <div class="d-evolution-box">
+                    <img class = "poke-backdrop-{{ $pokemonInfo['types'][0] }}" src="{{ $evolution['image_url'] }}" alt="{{ $evolution['name'] }}"/>
+                    <div class="d-evolution-level">lv: {{$evolution['evolves_at_level']}}</div>
+                    <div class="d-evolution-name">{{ucFirst($evolution['name'])}}</div>
+                    <div>
+                        <x-button-type :evolution="$evolution"></x-button-type>
+                    </div>
                 </div>
-            </div>
             @if (!$loop->last)
                 <i class=" d-evo-arrow fa-solid fa-arrow-right"></i>
             @endif
@@ -93,7 +93,7 @@
     <div class="d-moveSet" x-show="tab === 'moveSet'">
         <div class="d-abilities">
             @foreach($pokemonInfo['ability'] as $ability)
-                <div class="d-ability"><p>{{ucFirst($ability)}}</p></div>
+                <button class="d-ability">{{ucFirst($ability)}}</button>
             @endforeach
         </div>
 
