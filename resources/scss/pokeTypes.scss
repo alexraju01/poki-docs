@@ -66,7 +66,18 @@ $colors: (
     }
 
     .poke-backdrop-#{$type} {
-        filter: drop-shadow(0.1rem 0.1rem 2rem rgba($color, 0.8));
+        filter: drop-shadow(0.1rem 0.1rem 2rem rgba($color, 0.6));
+    }
+
+    .d-evo-poke-backdrop-#{$type} {
+        filter: drop-shadow(0.1rem 0.1rem 2rem rgba($color, 0.6));
+        transition: 0.3s;
+    }
+
+    .d-evo-poke-backdrop-#{$type}:hover {
+        scale: 1.1;
+
+        // filter: drop-shadow(0.1rem 0.1rem 2rem rgba($color, 0.8));
     }
 
     .type-indicator-#{$type} {

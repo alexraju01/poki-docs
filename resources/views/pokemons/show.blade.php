@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <a class="go-back" href="{{route('pokemons.index')}}">
         <i class="fa-solid fa-arrow-left"></i>
     </a>
@@ -10,6 +11,9 @@
             <div class="poke-id">
                 <p>#{{$pokemonInfo['id']}}</p>
             </div>
+
+            
+            
 
             <div class="img-container">
                 <img class="poke-sprite poke-backdrop-{{ $pokemonInfo['types'][0] }}" src="{{ $pokemonInfo['sprite'] }}">

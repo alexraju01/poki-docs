@@ -147,7 +147,6 @@ protected function addImgAndIdToData($data) {
                 return [$key => is_null($value) ? '0': $value];
             });
             $moveName = Str::title(str_replace('-', ' ', $move['move']['name']));
-            // dd($moveName);
         
         return [
             'name' => $moveName,
@@ -227,6 +226,8 @@ protected function fetchEvolutions($evolutionNodes, $level = 1)
 
     foreach ($evolutionNodes as $evolutionNode) {
         $speciesName = $evolutionNode['species']['name'];
+        $speciesId = $this->extractIdFromUrl($evolutionNode['species']['url']);
+
         $pokemonData = $this->fetchPokemonData($speciesName);
         if (empty($pokemonData)) {
             continue; // Skip if no data is returned
@@ -240,6 +241,7 @@ protected function fetchEvolutions($evolutionNodes, $level = 1)
         $evolutionDetails = collect($evolutionNode['evolution_details'])->first();
         $evolvesAtLevel = $evolutionDetails ? $evolutionDetails['min_level'] : $level; // Use provided level if min_level is not specified
         $evolutions->push([
+            'id' => $speciesId,
             'name' => $speciesName,
             'image_url' => $pokemonData['sprites']['other']['official-artwork']['front_default'],
             'evolves_at_level' => $evolvesAtLevel,

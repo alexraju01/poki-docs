@@ -26,6 +26,7 @@
     
     <div class="box" x-show="tab === 'description'">
         <div class="d-img-container">
+            
             <img
             class="poke-sprite poke-backdrop-{{ $pokemonInfo['types'][0] }}"
             src="{{ $pokemonInfo['sprite'] }}"
@@ -70,8 +71,11 @@
         <h2>Evolution Path</h2>
         <div class="d-evolution-container">
             @forelse ($pokemonInfo['evolutions'] as $evolution)
-                <div class="d-evolution-box">
-                    <img class = "poke-backdrop-{{ $pokemonInfo['types'][0] }}" src="{{ $evolution['image_url'] }}" alt="{{ $evolution['name'] }}"/>
+            {{-- {{dd($evolution['name'])}} --}}
+            <div class="d-evolution-box">
+                    <a href="{{ route('pokemons.show', ['pokemon' => $evolution['id']]) }}">
+                        <img class = "d-evo-poke-backdrop-{{ $pokemonInfo['types'][0] }}" src="{{ $evolution['image_url'] }}" alt="{{ $evolution['name'] }}"/>
+                    </a>
                     <div class="d-evolution-level">lv: {{$evolution['evolves_at_level']}}</div>
                     <div class="d-evolution-name">{{ucFirst($evolution['name'])}}</div>
                     <div>
