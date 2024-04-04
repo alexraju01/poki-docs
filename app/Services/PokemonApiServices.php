@@ -144,17 +144,13 @@ protected function addImgAndIdToData($data) {
             $ExtraMoveDetails = collect($moveDetails)
             ->only(['power', 'type','pp'])
             ->mapWithKeys(function ($value , $key) {
-                return [$key => is_null($value) ? 'None': $value];
+                return [$key => is_null($value) ? '0': $value];
             });
-            // dd($moveType = $moveDetails['type']['name'] ?? 'unknown');
-            // dd($ExtraMoveDetails['type']);
-
-        // });
+            $moveName = Str::title(str_replace('-', ' ', $move['move']['name']));
+            // dd($moveName);
         
-        // $moveType = $moveDetails['type']['name'] ?? 'unknown'; // Extracting the move type
-        // $movepower = $moveDetails['']
         return [
-            'name' => $move['move']['name'],
+            'name' => $moveName,
             'url' => $move['move']['url'],
             'lvl_req' => $levelUpMove['level_learned_at'],
             'type' => $ExtraMoveDetails['type']['name'], // Now includes the move type fetched from the PokéAPI

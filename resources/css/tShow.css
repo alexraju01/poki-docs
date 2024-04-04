@@ -6,4 +6,14 @@
     .name-section {
         display: none;
     }
+    .abilities-container {
+        display: flex;
+        margin: 1.5rem 1.5rem;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .ability {
+        width: 23rem;
+    }
 }

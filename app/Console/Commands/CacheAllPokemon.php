@@ -66,7 +66,6 @@ class CacheAllPokemon extends Command
                     'weaknesses' => $strengthAndWeakness['weaknesses'],
                     'description' => $englishDescription,
                     'evolutions' => $this->pokemonApiService->showEvolutions($basicInfo['name'])
-                        // Add more processed data here as needed
                 ];
             });
 
