@@ -15,6 +15,16 @@
     5. npm run dev
     6. include the @vite([navigate-path-to-example.scss]) in the blade template you want to apply the example.scss in the header tag
 
+## Clearing Cache and Running Cacheing Command
+
+### Cache Clearing:
+
+    php artisan cache:clear
+
+### Running Custome Command:
+
+    php artisan app:cache-all-pokemon
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
