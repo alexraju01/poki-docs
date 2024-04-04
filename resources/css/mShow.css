@@ -164,14 +164,17 @@
 
 /* ############################ Abilityies and Moveset ############################ */
 .skills-tab {
-    width: 100%;
+    width: 100vw;
 }
 
 .abilities-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
-    padding: 0 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    background-color: black;
+    place-items: center;
     gap: 1rem;
+    padding: 1rem 1rem;
+    grid-auto-columns: 1fr;
 }
 
 .ability {
@@ -183,6 +186,7 @@
     background: transparent;
     color: #ffffff;
     border: solid 0.1rem white;
+    /* background-color: aqua; */
 }
 
 .moves-heading,
@@ -195,6 +199,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
     gap: 1rem;
+
     padding: 0 1rem;
     align-items: center;
     width: 100%;
