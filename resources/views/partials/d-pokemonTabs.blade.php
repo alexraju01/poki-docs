@@ -2,7 +2,7 @@
     <div class="d-tabs">
         <button class="d-tab-button-{{ $pokemonInfo['types'][0] }}" :class="{'active': tab === 'description'}" @click="tab = 'description'">Description</button>
         <button class="d-tab-button-{{ $pokemonInfo['types'][0] }}" :class="{'active': tab === 'evolution'}" @click="tab = 'evolution'">Evolution</button>
-        <button class="d-tab-button-{{ $pokemonInfo['types'][0] }}" :class="{'active': tab === 'moveSet'}" @click="tab = 'moveSet'">Skill Set</button>
+        <button class="d-tab-button-{{ $pokemonInfo['types'][0] }}" :class="{'active': tab === 'moveSet'}" @click="tab = 'moveSet'">Move Set</button>
     </div>
     
     
@@ -71,12 +71,12 @@
         <h2>Evolution Path</h2>
         <div class="d-evolution-container">
             @forelse ($pokemonInfo['evolutions'] as $evolution)
-            {{-- {{dd($evolution['name'])}} --}}
+            {{-- {{dd($evolution)}} --}}
             <div class="d-evolution-box">
                     <a href="{{ route('pokemons.show', ['pokemon' => $evolution['id']]) }}">
                         <img class = "d-evo-poke-backdrop-{{ $pokemonInfo['types'][0] }}" src="{{ $evolution['image_url'] }}" alt="{{ $evolution['name'] }}"/>
                     </a>
-                    <div class="d-evolution-level">lv: {{$evolution['evolves_at_level']}}</div>
+                    {{-- <div class="d-evolution-level">lv: {{$evolution['lvl']}}</div> --}}
                     <div class="d-evolution-name">{{ucFirst($evolution['name'])}}</div>
                     <div>
                         <x-button-type :evolution="$evolution"></x-button-type>

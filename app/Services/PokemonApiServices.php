@@ -29,7 +29,7 @@ public function fetchPokemons($limit){
 public function fetchAllPokemonIds()
     {
         $url = 'https://pokeapi.co/api/v2/pokemon?limit=1000'; // Starting URL
-        $allPokemonIds = [];
+        $allPokemonNames = [];
 
         while ($url) {
             $response = Http::get($url);
@@ -37,9 +37,10 @@ public function fetchAllPokemonIds()
             if ($response->successful()) {
                 $data = $response->json();
                 foreach ($data['results'] as $pokemon) {
+                    // dd($pokemon);
                     // Extract and store the Pokemon ID from the URL
-                    $pokemonId = basename($pokemon['url']);
-                    $allPokemonIds[] = $pokemonId;
+                    $pokemonName = basename($pokemon['name']);
+                    $allPokemonNames[] = $pokemonName;
                 }
 
                 // Set the next URL for the next iteration, or null if at the end
@@ -49,7 +50,7 @@ public function fetchAllPokemonIds()
             }
         }
 
-        return $allPokemonIds;
+        return $allPokemonNames;
     }
 
 
@@ -244,7 +245,7 @@ protected function fetchEvolutions($evolutionNodes, $level = 1)
             'id' => $speciesId,
             'name' => $speciesName,
             'image_url' => $pokemonData['sprites']['other']['official-artwork']['front_default'],
-            'evolves_at_level' => $evolvesAtLevel,
+            'lvl' => $evolvesAtLevel,
             'types' => $types,
         ]);
 
@@ -257,8 +258,63 @@ protected function fetchEvolutions($evolutionNodes, $level = 1)
     return $evolutions;
 }
 
+// ========================================================================
 
+// public function showEvolutions($name)
+// {
+//     $speciesResponse = Http::get("https://pokeapi.co/api/v2/pokemon-species/{$name}");
+//     if (!$speciesResponse->successful()) {
+//         return collect(); // Early return on failed API call
+//     }
 
+//     $evolutionChainUrl = $speciesResponse->json()['evolution_chain']['url'];
+//     $evolutionData = Http::get($evolutionChainUrl)->json();
+
+//     dd($this->fetchEvolutions(collect([$evolutionData['chain']])));
+//     return $this->fetchEvolutions(collect([$evolutionData['chain']]));
+// }
+
+// protected function fetchEvolutions($evolutionNodes, $level = 1)
+// {
+//     $evolutions = collect();
+
+//     foreach ($evolutionNodes as $node) {
+//         $pokemonData = $this->fetchPokemonData($node['species']['name']);
+//         if (empty($pokemonData)) continue;
+
+//         $types = collect($pokemonData['types'])
+//                     ->map(fn($type) => $type['type']['name'])
+//                     ->toArray();
+
+//         $evolutionDetails = collect($node['evolution_details'])->map(function ($detail) {
+//             // dd($detail);
+//             $trigger = $detail['trigger']['name'];
+//             $method = match ($trigger) {
+//                 'level-up' => "Level: " . ($detail['min_level'] ?? 'N/A'),
+//                 'use-item' => "Item: " . ($detail['item']['name'] ?? 'N/A'),
+//                 'min_happiness' => "Item: " . ($detail['min_happiness'] ?? 'N/A'),
+
+//                 'trade' => "Trade",
+//                 default => $trigger,
+//             };
+//             return $method;
+//         })->join(', ');
+
+//         $evolutions->push([
+//             'id' => $this->extractIdFromUrl($node['species']['url']),
+//             'name' => $node['species']['name'],
+//             'image_url' => $pokemonData['sprites']['other']['official-artwork']['front_default'],
+//             'evolution_details' => $evolutionDetails,
+//             'types' => $types,
+//         ]);
+
+//         if (!empty($node['evolves_to'])) {
+//             $evolutions = $evolutions->merge($this->fetchEvolutions(collect($node['evolves_to'])));
+//         }
+//     }
+
+//     return $evolutions;
+// }
 
 
 }

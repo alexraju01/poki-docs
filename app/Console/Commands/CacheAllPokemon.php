@@ -23,23 +23,23 @@ class CacheAllPokemon extends Command
     {
         $pokemonIds = $this->pokemonApiService->fetchAllPokemonIds();
 
-    foreach ($pokemonIds as $id) {
-        $cacheKey = 'pokemon_' . $id;
+    foreach ($pokemonIds as $name) {
+        $cacheKey = $name;
 
         // Check if the Pokémon data is already cached to avoid unnecessary processing
         if (!Cache::has($cacheKey)) {
             // Cache the Pokémon data if it's not already cached
-            Cache::remember($cacheKey, now()->addDays(90), function () use ($id) {
+            Cache::remember($cacheKey, now()->addDays(90), function () use ($name) {
                 // Fetch detailed data for the Pokémon
-                $basicInfo = $this->pokemonApiService->fetchPokemonData($id);
+                $basicInfo = $this->pokemonApiService->fetchPokemonData($name);
                 
                 // Extract and process specific parts of the data as needed
                 // This example uses placeholders for these processes
                 $types = collect($basicInfo['types'])->pluck('type.name')->all();
-                $speciesInfo = $this->pokemonApiService->fetchPokemonSpecies($id);
+                $speciesInfo = $this->pokemonApiService->fetchPokemonSpecies($name);
                 $genusType = collect($speciesInfo['genera'] ?? [])->firstWhere('language.name', 'en')['genus'] ?? null;
                 $statsBarWithColor = $this->pokemonApiService->percentageStatsBarWithColor($basicInfo['stats'], $types[0]);
-                $strengthAndWeakness = $this->pokemonApiService->pokemonStrengthAndWeakness($id);
+                $strengthAndWeakness = $this->pokemonApiService->pokemonStrengthAndWeakness($name);
     
                 $englishDescription = collect($speciesInfo['flavor_text_entries'])
                     ->where('language.name', 'en')
@@ -69,9 +69,10 @@ class CacheAllPokemon extends Command
                 ];
             });
 
-            $this->info("Cached data for Pokémon ID: {$id}");
+            $this->info("Cached data for Pokémon ID: {$name}");
+            // echo ("Cached data for Pokémon ID: {$name}");
         } else {
-            $this->info("Data for Pokémon ID: {$id} is already cached.");
+            $this->info("Data for Pokémon ID: {$name} is already cached.");
         }
     }
     }
