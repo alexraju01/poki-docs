@@ -206,17 +206,44 @@
         display: flex;
         padding: 1rem;
         width: 85vw;
+        height: 60rem;
         justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        /* background-color: #4e8234; */
+        overflow-y: auto;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
     }
+
+    /* .d-evolution-box {
+        transition: all 0.3s;
+    }
+
+    .d-evolution-container:hover > :not(:hover) {
+        opacity: 0.4;
+    } */
+
     .d-evolution-box {
-        text-align: center;
-        min-width: 28rem;
+        display: flex;
+        height: fit-content;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+        border-radius: 0.8rem;
+        box-shadow: 3px 5px 8px rgba(0, 0, 0, 0.5);
     }
+
+    .d-evolution-box:hover img {
+        scale: 1.1;
+    }
+
     .d-evolution-box img {
         display: block;
         margin: 0 auto;
         height: auto;
-        width: 20rem;
+        width: 12rem;
         image-rendering: pixelated;
     }
     .d-evolution-name {
@@ -241,7 +268,8 @@
     .d-evo-arrow {
         display: flex;
         align-items: center;
-        margin-bottom: 5rem;
+        justify-content: center;
+        /* margin-bottom: 5rem; */
     }
 
     /* ################### Move Set  ###################*/

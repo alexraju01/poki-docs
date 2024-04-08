@@ -72,7 +72,7 @@
         <div class="d-evolution-container">
             @forelse ($pokemonInfo['evolutions'] as $evolution)
             {{-- {{dd($evolution)}} --}}
-            <div class="d-evolution-box">
+            <div class="d-evolution-box d-evolution-box-{{ $pokemonInfo['types'][0]}}">
                     <a href="{{ route('pokemons.show', ['pokemon' => $evolution['id']]) }}">
                         <img class = "d-evo-poke-backdrop-{{ $pokemonInfo['types'][0] }}" src="{{ $evolution['image_url'] }}" alt="{{ $evolution['name'] }}"/>
                     </a>
