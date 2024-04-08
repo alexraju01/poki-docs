@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Services\PokemonApiServices;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
@@ -18,14 +19,33 @@ class PokemonController extends Controller
         $this->baseUrl = config('services.pokemon.api_url');
     }
 
-    public function index(){
-        $limit=1000;
-
+    public function index(Request $request){
+        $limit = 1000;
+        $search = $request->input('search', '');
+    
         $pokemons = Cache::remember('pokemons', now()->addDays(90), function () use ($limit) {
+          
             return $this->pokemonApiService->fetchPokemons($limit);
         });
+    
+        $pokemonCollection = collect($pokemons);
+    
 
-        return view('pokemons.index', ['pokemons' => $pokemons,'limit' => $limit]);
+        if (!empty($search)) {
+            $pokemonCollection = $pokemonCollection->filter(function ($pokemon) use ($search) {
+                return Str::contains(strtolower($pokemon['name']), strtolower($search));
+            });
+        }
+    
+        // Convert the collection back to an array if needed
+        $filteredPokemons = $pokemonCollection->toArray();
+    
+        // Return the view with filtered Pokémon and the search term
+        return view('pokemons.index', [
+            'pokemons' => $filteredPokemons, 
+            'limit' => $limit, 
+            'search' => $search
+        ]);
     }
 
 
