@@ -1,16 +1,16 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-CUC6RA7i.css",
+    "file": "assets/app-jh2ELqsN.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-DGrYT__G.js",
+    "file": "assets/app-CDTRAqrz.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-D7Qxr1By.css"
+      "assets/app-CxK-1Vkd.css"
     ]
   },
   "resources/scss/pokeTypes.scss": {

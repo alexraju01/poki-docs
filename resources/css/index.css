@@ -52,11 +52,10 @@ body {
     transition: 0.5s;
 }
 
-i {
+.fa-search {
     position: absolute;
     right: 1.5rem;
     bottom: 1rem;
-    /* line-height: 2rem; */
     font-size: 2rem;
     color: #636468;
 }
