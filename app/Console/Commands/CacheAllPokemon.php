@@ -22,7 +22,7 @@ class CacheAllPokemon extends Command
     public function handle()
     {
         $pokemonIds = $this->pokemonApiService->fetchAllPokemonIds();
-
+        $processedCount = 1; // Initialize counter
     foreach ($pokemonIds as $name) {
         $cacheKey = $name;
 
@@ -69,10 +69,12 @@ class CacheAllPokemon extends Command
                 ];
             });
 
-            $this->info("Cached data for Pokémon ID: {$name}");
+            $this->info("Cached data for Pokémon ID:{$processedCount} {$name}");
+            $processedCount++;
             // echo ("Cached data for Pokémon ID: {$name}");
         } else {
-            $this->info("Data for Pokémon ID: {$name} is already cached.");
+            $this->info("Data for Pokémon ID:{$processedCount} {$name} is already cached.");
+            $processedCount++;
         }
     }
     }

@@ -211,19 +211,10 @@
         align-items: center;
         flex-wrap: wrap;
         gap: 20px;
-        /* background-color: #4e8234; */
         overflow-y: auto;
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
     }
-
-    /* .d-evolution-box {
-        transition: all 0.3s;
-    }
-
-    .d-evolution-container:hover > :not(:hover) {
-        opacity: 0.4;
-    } */
 
     .d-evolution-box {
         display: flex;
@@ -232,10 +223,10 @@
         align-items: center;
         padding: 2rem;
         border-radius: 0.8rem;
-        box-shadow: 3px 5px 8px rgba(0, 0, 0, 0.5);
+        box-shadow: 3px 6px 8px rgba(0, 0, 0, 0.8);
     }
 
-    .d-evolution-box:hover img {
+    .d-evolution-box img:hover {
         scale: 1.1;
     }
 
@@ -258,7 +249,6 @@
     }
     .pokemon-types {
         display: inline-block;
-        background: #4e8234;
         color: #fff;
         padding: 2px 5px;
         margin: 2px;
@@ -274,6 +264,8 @@
 
     /* ################### Move Set  ###################*/
     .d-moveSet {
+        position: relative;
+        bottom: -5rem;
         display: flex;
         flex-direction: column;
         width: 80%;
@@ -286,11 +278,15 @@
     }
 
     .d-ability {
-        margin-bottom: 1rem;
+        font-size: 1.8rem;
+        font-weight: 700;
+        border-radius: 0.8rem;
+        background: transparent;
+        color: #ffffff;
+        border: solid 0.1rem white;
+        margin-bottom: 2rem;
         padding: 1rem 0;
         border-radius: 0.8rem;
-        background: linear-gradient(to right, limegreen, green);
-        box-shadow: 0 0.5rem 2rem rgba(32, 37, 44, 0.3);
     }
 
     .d-moveset-heading {

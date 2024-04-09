@@ -20,8 +20,54 @@ body {
 
 #Title {
     text-align: center;
-    font-size: 4rem;
+    font-size: clamp(2rem, 4vw, 4rem);
     padding: 1rem;
+    /* background-color: aqua; */
+}
+
+.searchBar {
+    /* padding: 1rem; */
+    margin: auto;
+    justify-content: center;
+    /* background-color: antiquewhite; */
+    position: relative;
+    width: fit-content;
+}
+
+/* .search-box {
+} */
+
+.input-box {
+    padding: 10px;
+    width: 25rem;
+    height: 4rem;
+    background: none;
+    border: 0.2rem solid #636468;
+    border-radius: 4rem;
+    box-sizing: border-box;
+    font-family: Comic Sans MS;
+    font-size: 2rem;
+    color: white;
+    outline: none;
+    transition: 0.5s;
+}
+
+i {
+    position: absolute;
+    right: 1.5rem;
+    bottom: 1rem;
+    /* line-height: 2rem; */
+    font-size: 2rem;
+    color: #636468;
+}
+
+.input-box:focus,
+.input-box:hover {
+    border-color: aliceblue;
+}
+
+.input-box:focus i {
+    color: white;
 }
 
 .card-container {

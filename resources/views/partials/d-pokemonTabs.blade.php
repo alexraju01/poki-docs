@@ -72,11 +72,10 @@
         <div class="d-evolution-container">
             @forelse ($pokemonInfo['evolutions'] as $evolution)
             {{-- {{dd($evolution)}} --}}
-            <div class="d-evolution-box d-evolution-box-{{ $pokemonInfo['types'][0]}}">
-                    <a href="{{ route('pokemons.show', ['pokemon' => $evolution['id']]) }}">
+            <div class="d-evolution-box">
+                    <a href="{{ route('pokemons.show', ['pokemon' => $evolution['name']]) }}">
                         <img class = "d-evo-poke-backdrop-{{ $pokemonInfo['types'][0] }}" src="{{ $evolution['image_url'] }}" alt="{{ $evolution['name'] }}"/>
                     </a>
-                    {{-- <div class="d-evolution-level">lv: {{$evolution['lvl']}}</div> --}}
                     <div class="d-evolution-name">{{ucFirst($evolution['name'])}}</div>
                     <div>
                         <x-button-type :evolution="$evolution"></x-button-type>
@@ -87,7 +86,7 @@
             @endif
             @empty
             <div class="no-evolution">
-                <p>This Pokémon does not evolve.</p>
+                <p>This Pokémon does not evolve</p>
             </div>
             @endforelse
         </div>

@@ -30,8 +30,15 @@ $colors: (
     }
 
     .button-#{$type} {
-        border: 0.1rem solid darken($color, 10%);
-        color: darken($color, 10%);
+        border: 0.1rem solid $color;
+        color: $color;
+        filter: drop-shadow(0rem 0rem 0.9rem rgba($color, 0.6));
+        transition: all 0.3s;
+    }
+
+    .button-#{$type}:hover {
+        background-color: rgba($color, 0.1);
+        scale: 1.1;
     }
 
     .move-#{$type} {
@@ -54,7 +61,13 @@ $colors: (
         background: transparent;
         font-size: 1.6rem;
         color: $color;
-        filter: drop-shadow(0rem 0rem 0.8rem rgba($color, 0.6));
+        filter: drop-shadow(0rem 0rem 0.9rem rgba($color, 0.6));
+        transition: all 0.3s;
+    }
+
+    .d-button-#{$type}:hover {
+        background-color: rgba($color, 0.1);
+        scale: 1.1;
     }
 
     .line-break-#{$type} {
@@ -72,12 +85,6 @@ $colors: (
     .d-evo-poke-backdrop-#{$type} {
         filter: drop-shadow(0.1rem 0.1rem 2rem rgba($color, 0.6));
         transition: 0.3s;
-    }
-
-    .d-evo-poke-backdrop-#{$type}:hover {
-        // scale: 1.1;
-
-        // filter: drop-shadow(0.1rem 0.1rem 2rem rgba($color, 0.8));
     }
 
     .type-indicator-#{$type} {
