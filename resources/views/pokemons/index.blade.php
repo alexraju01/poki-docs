@@ -3,12 +3,12 @@
 @section('content')
 
 <div class="container">
-    <h1 id="Title">Pokemon List (Tops {{$limit}})</h1>
+    <h1 id="Title">Poki List (Tops {{$limit}})</h1>
     
     <!-- Search Form -->
     <form class="searchBar" action="{{ route('pokemons.index') }}" method="GET">
         <div class="search-box">
-            <input type="text" name="search" class="input-box"  value="{{ $search }}">
+            <input type="text" name="search" class="input-box" placeholder="Search poki..."  value="{{ $search }}">
             <i class="fas fa-search"></i>
         </div>
     </form>
