@@ -101,7 +101,7 @@ $colors: (
         font-size: 1.5rem; /* Responsive font size */
         background: transparent;
         border: 0.1rem solid $color;
-        color: white;
+        color: $color;
         font-weight: 700;
     }
 

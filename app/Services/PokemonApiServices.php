@@ -39,7 +39,8 @@ public function fetchAllPokemonIds()
                 foreach ($data['results'] as $pokemon) {
                     // dd($pokemon);
                     // Extract and store the Pokemon ID from the URL
-                    $pokemonName = basename($pokemon['name']);
+                    $pokemonName = basename($pokemon['url']);
+                    // dd($pokemonName);
                     $allPokemonNames[] = $pokemonName;
                 }
 

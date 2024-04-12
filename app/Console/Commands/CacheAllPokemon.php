@@ -23,23 +23,23 @@ class CacheAllPokemon extends Command
     {
         $pokemonIds = $this->pokemonApiService->fetchAllPokemonIds();
         $processedCount = 1; // Initialize counter
-    foreach ($pokemonIds as $name) {
-        $cacheKey = $name;
+    foreach ($pokemonIds as $id) {
+        $cacheKey = $id;
 
         // Check if the Pokémon data is already cached to avoid unnecessary processing
         if (!Cache::has($cacheKey)) {
             // Cache the Pokémon data if it's not already cached
-            Cache::remember($cacheKey, now()->addDays(90), function () use ($name) {
+            Cache::remember($cacheKey, now()->addDays(90), function () use ($id) {
                 // Fetch detailed data for the Pokémon
-                $basicInfo = $this->pokemonApiService->fetchPokemonData($name);
+                $basicInfo = $this->pokemonApiService->fetchPokemonData($id);
                 
                 // Extract and process specific parts of the data as needed
                 // This example uses placeholders for these processes
-                $types = collect($basicInfo['types'])->pluck('type.name')->all();
-                $speciesInfo = $this->pokemonApiService->fetchPokemonSpecies($name);
-                $genusType = collect($speciesInfo['genera'] ?? [])->firstWhere('language.name', 'en')['genus'] ?? null;
+                $types = collect($basicInfo['types'])->pluck('type.id')->all();
+                $speciesInfo = $this->pokemonApiService->fetchPokemonSpecies($id);
+                $genusType = collect($speciesInfo['genera'] ?? [])->firstWhere('language.id', 'en')['genus'] ?? null;
                 $statsBarWithColor = $this->pokemonApiService->percentageStatsBarWithColor($basicInfo['stats'], $types[0]);
-                $strengthAndWeakness = $this->pokemonApiService->pokemonStrengthAndWeakness($name);
+                $strengthAndWeakness = $this->pokemonApiService->pokemonStrengthAndWeakness($id);
     
                 $englishDescription = collect($speciesInfo['flavor_text_entries'])
                     ->where('language.name', 'en')
@@ -69,12 +69,12 @@ class CacheAllPokemon extends Command
                 ];
             });
 
-            $this->info("Cached data for Pokémon ID:{$processedCount} {$name}");
+            $this->info("Cached data for Pokémon ID:{$id}");
             $processedCount++;
             // echo ("Cached data for Pokémon ID: {$name}");
         } else {
-            $this->info("Data for Pokémon ID:{$processedCount} {$name} is already cached.");
-            $processedCount++;
+            $this->info("Data for Pokémon ID:} {$id} is already cached.");
+            // $processedCount++;
         }
     }
     }

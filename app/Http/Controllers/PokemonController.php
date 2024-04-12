@@ -49,20 +49,21 @@ class PokemonController extends Controller
     }
 
 
-    public function show($name)
+    public function show($id)
     {
         // Define a unique cache key based on the Pokemon ID
-        $cacheKey = $name;
+        $cacheKey = $id;
 
         // Attempt to retrieve the data from cache
-        $pokemonInfo = Cache::remember($cacheKey, now()->addDays(90), function () use ($name) {
+        $pokemonInfo = Cache::remember($cacheKey, now()->addDays(90), function () use ($id) {
             // If not found in cache, fetch data from the API
-            $basicInfo = $this->pokemonApiService->fetchPokemonData($name);
+            $basicInfo = $this->pokemonApiService->fetchPokemonData($id);
             $types = collect($basicInfo['types'])->pluck('type.name')->all();
-            $speciesInfo = $this->pokemonApiService->fetchPokemonSpecies($name);
+            // dd($types);
+            $speciesInfo = $this->pokemonApiService->fetchPokemonSpecies($id);
             $genusType = collect($speciesInfo['genera'] ?? [])->firstWhere('language.name', 'en')['genus'] ?? null;
             $statsBarWithColor = $this->pokemonApiService->percentageStatsBarWithColor($basicInfo['stats'], $types[0]);
-            $strengthAndWeakness = $this->pokemonApiService->pokemonStrengthAndWeakness($name);
+            $strengthAndWeakness = $this->pokemonApiService->pokemonStrengthAndWeakness($id);
             // dd($evo);
             $englishDescription = collect($speciesInfo['flavor_text_entries'])
                 ->where('language.name', 'en')
