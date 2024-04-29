@@ -70,6 +70,11 @@ $colors: (
         scale: 1.1;
     }
 
+    .d-button-#{$type}.active {
+        transform: scale(1.1); /* Apply scaling to active button */
+        background-color: rgba($color, 0.2);
+    }
+
     .line-break-#{$type} {
         background-color: $color;
         height: 0.2rem;
@@ -130,6 +135,24 @@ $colors: (
     .d-move-#{$type} {
         color: $color;
         border: 0.1rem solid $color;
+    }
+
+    /* For WebKit (Chrome, Safari, etc.) */
+    .d-moveset-#{$type}::-webkit-scrollbar {
+        width: 10px; /* You can adjust the width */
+    }
+
+    .d-moveset-#{$type}::-webkit-scrollbar-track {
+        background: $color; /* Color of the track */
+    }
+
+    .d-moveset-#{$type}::-webkit-scrollbar-thumb {
+        background: transparent; /* Color of the thumb */
+    }
+
+    /* For Firefox */
+    .d-moveset-#{$type} {
+        scrollbar-color: $color transparent; /* Thumb and track color */
     }
 }
 

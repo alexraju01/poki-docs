@@ -6,12 +6,32 @@
     <h1 id="Title">Poki List (Tops {{$limit}})</h1>
     
     <!-- Search Form -->
-    <form class="searchBar" action="{{ route('pokemons.index') }}" method="GET">
-        <div class="search-box">
-            <input type="text" name="search" class="input-box" placeholder="Search poki..."  value="{{ $search }}">
-            <i class="fas fa-search"></i>
+    <form class="search-box" action="{{ route('pokemons.index') }}" method="GET">
+        <div class="search-bar">
+            <input type="text" name="search" class="input-box" placeholder="Search poki..." value="{{ $search }}">
+            <button type="submit" class="fas fa-search"></button>
+        </div>
+      
+        <div class="filtersByType d-poke-types">
+            @foreach ($listTypes as $type)
+                <!-- Pass the $type variable to a JavaScript function to update the <h2> tag -->
+                <button type="button" class="d-button-{{ $type }}" onclick="updateFilter('{{ ucFirst($type) }}')">{{ ucFirst($type) }}</button>
+            @endforeach
+            <!-- Add a button to clear the filter -->
+            <h2 id="filterTypeHeading">Filter by types:</h2>
+            <button class="d-button-active-tab-color" type="submit" name="filter" value="">Reset</button>
         </div>
     </form>
+    
+   
+    
+    
+    
+
+    
+    
+    
+    
 
     <!-- Pokémon List -->
     @if(count($pokemons) > 0)
@@ -29,26 +49,8 @@
         @endforeach
     </div>
     @else
-        <p>No Pokémon found.</p>
+        <h2>No Pokémon found.</h2>
     @endif
 </div>
-
-
-    
-        {{-- <div class="card-container">
-            @foreach($pokemons as $pokemon)
-            <a href="{{ route('pokemons.show', ['pokemon' => $pokemon['name']]) }}">
-            <div class="card"
-            onerror="this.style.display='none';">
-                <p>{{$pokemon['id']}}</p>
-                <img src="{{ $pokemon['sprite'] }}" alt="{{ ucfirst($pokemon['name']) }}"
-                onerror="this.closest('a').remove();">
-                <p>{{ ucfirst($pokemon['name'])}}</p>
-            </div>
-            </a>
-            @endforeach
-        </div> --}}
-
-
 @endsection
 

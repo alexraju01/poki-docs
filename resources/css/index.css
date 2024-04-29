@@ -25,11 +25,9 @@ body {
     /* background-color: aqua; */
 }
 
-.searchBar {
-    /* padding: 1rem; */
+.search-bar {
     margin: auto;
     justify-content: center;
-    /* background-color: antiquewhite; */
     position: relative;
     width: fit-content;
 }
@@ -58,8 +56,13 @@ body {
     bottom: 1rem;
     font-size: 2rem;
     color: #636468;
+    background-color: transparent;
+    transition: 0.3s ease all;
 }
-
+.fa-search:hover {
+    color: white;
+    cursor: pointer;
+}
 .input-box:focus,
 .input-box:hover {
     border-color: aliceblue;
@@ -67,6 +70,12 @@ body {
 
 .input-box:focus i {
     color: white;
+}
+
+/* ########################## Filters ##########################*/
+
+.filtersByType {
+    padding: 3rem;
 }
 
 .card-container {

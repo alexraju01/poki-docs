@@ -303,9 +303,6 @@
         font-size: 1.9rem;
         overflow-y: auto;
         max-height: 45rem;
-
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
     }
 
     .d-move {

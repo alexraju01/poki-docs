@@ -28,6 +28,11 @@
         window.addEventListener('load', function() {
             document.getElementById('preloader').classList.add('hidden');
         });
+
+        function updateFilter(type) {
+            // Update the <h2> tag content to display the clicked type
+            document.getElementById('filterTypeHeading').innerText = 'Filter by ' + type;
+        }
     </script>
 </body>
 </html>

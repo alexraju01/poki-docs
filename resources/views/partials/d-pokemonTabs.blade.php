@@ -20,7 +20,7 @@
             @endforeach
         </div>
         <span class="next-evolution next-evolution-{{$pokemonInfo['types'][0]}}">
-            See Next Evolution
+            {{$pokemonInfo['genus']}}
         </span>
     </div>
 
@@ -94,7 +94,7 @@
     </div>
 
     {{-- ####################### Desktop Move Set ####################### --}}
-    <div class="d-moveSet" x-show="tab === 'moveSet'">
+    <div class="d-moveSet d-moveset-{{$pokemonInfo['types'][0]}}" x-show="tab === 'moveSet'">
         <div class="d-abilities">
             @foreach($pokemonInfo['ability'] as $ability)
                 <button class="d-ability">{{ucFirst($ability)}}</button>

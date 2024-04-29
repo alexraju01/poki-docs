@@ -19,35 +19,47 @@ class PokemonController extends Controller
         $this->baseUrl = config('services.pokemon.api_url');
     }
 
-    public function index(Request $request){
-        $limit = 1000;
-        $search = $request->input('search', '');
-    
-        $pokemons = Cache::remember('pokemons', now()->addDays(90), function () use ($limit) {
-          
-            return $this->pokemonApiService->fetchPokemons($limit);
-        });
-    
-        $pokemonCollection = collect($pokemons);
-    
+    public function index()
+{
+    $limit = 1000;
+    $search = request('search', '');
+    $ActiveType = request('filter'); // Capture the type from the request
 
-        if (!empty($search)) {
-            $pokemonCollection = $pokemonCollection->filter(function ($pokemon) use ($search) {
-                return Str::contains(strtolower($pokemon['name']), strtolower($search));
-            });
-        }
-    
-        // Convert the collection back to an array if needed
-        $filteredPokemons = $pokemonCollection->toArray();
-    
-        // Return the view with filtered Pokémon and the search term
-        return view('pokemons.index', [
-            'pokemons' => $filteredPokemons, 
-            'limit' => $limit, 
-            'search' => $search
-        ]);
-    }
+    // Fetch and cache Pokémon data
+    $pokemons = Cache::remember('pokemons', now()->addDays(90), function () use ($limit) {
+        return $this->pokemonApiService->fetchPokemons($limit);
+    });
+ 
+    $listOfTypePokemon = $this->pokemonApiService->fetchTypesByFilter($ActiveType);
+    // dd($listOfTypePokemon);
+    $pokemonCollection = collect($pokemons);
 
+    // Apply search filtering
+   // Apply search filtering
+if (!empty($search)) {
+    $pokemonCollection = $pokemonCollection->filter(function ($pokemon) use ($search) {
+        return Str::contains(strtolower($pokemon['name']), strtolower($search));
+    });
+}
+if ($listOfTypePokemon && is_array($listOfTypePokemon)) {
+    $pokemonCollection = $pokemonCollection->filter(function ($pokemon) use ($listOfTypePokemon) {
+        return in_array($pokemon['name'], $listOfTypePokemon); // Check if Pokémon name is in the list
+    });
+}
+
+// Get the filtered Pokémon data as an array
+$filteredPokemons = $pokemonCollection->values()->toArray();
+
+
+    // Return the view with the filtered Pokémon, the search term, and the available types
+    return view('pokemons.index', [
+        'pokemons' => $filteredPokemons,
+        'limit' => $limit,
+        'search' => $search,
+        'ActiveType' => $ActiveType, // Pass the current filter type to the view
+        'listTypes' => $this->pokemonApiService->fetchTypes(), // Fetch available types for the view
+    ]);
+}
 
     public function show($id)
     {
@@ -59,12 +71,11 @@ class PokemonController extends Controller
             // If not found in cache, fetch data from the API
             $basicInfo = $this->pokemonApiService->fetchPokemonData($id);
             $types = collect($basicInfo['types'])->pluck('type.name')->all();
-            // dd($types);
             $speciesInfo = $this->pokemonApiService->fetchPokemonSpecies($id);
             $genusType = collect($speciesInfo['genera'] ?? [])->firstWhere('language.name', 'en')['genus'] ?? null;
             $statsBarWithColor = $this->pokemonApiService->percentageStatsBarWithColor($basicInfo['stats'], $types[0]);
             $strengthAndWeakness = $this->pokemonApiService->pokemonStrengthAndWeakness($id);
-            // dd($evo);
+            
             $englishDescription = collect($speciesInfo['flavor_text_entries'])
                 ->where('language.name', 'en')
                 ->take(4)

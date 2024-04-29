@@ -1,20 +1,20 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-jh2ELqsN.css",
+    "file": "assets/app--UsYv_m6.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-CDTRAqrz.js",
+    "file": "assets/app-TKBDriHu.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-CxK-1Vkd.css"
+      "assets/app-hB1JA8oH.css"
     ]
   },
   "resources/scss/pokeTypes.scss": {
-    "file": "assets/pokeTypes-CjRf3Bkl.css",
+    "file": "assets/pokeTypes-Cd68XTqh.css",
     "src": "resources/scss/pokeTypes.scss",
     "isEntry": true
   }

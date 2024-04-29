@@ -50,16 +50,52 @@ public function fetchAllPokemonIds()
                 // throw new Exception('Failed to fetch data from PokéAPI: ' . $response->status());
             }
         }
-
         return $allPokemonNames;
     }
 
 
-public function fetchPokemonByType($type){
-    $response = Http::get("{$this->baseUrl}/type/{$type}");
-    $data = json_decode($response->getBody()->getContents(), true);
-    return $data['pokemon'] ?? [];
+public function fetchTypes(){
+    $response = Http::get('https://pokeapi.co/api/v2/type/');
+    if ($response->successful()) {
+        $data = $response->json();  // Convert the response body to an array
+        return  collect($data['results'])->pluck('name')
+        ->reject(function ($typeName) {
+            return in_array($typeName, ['unknown', 'shadow']);
+        });
+        
+    }
 }
+
+    // ######################### Fetcng different type ############################
+public function fetchTypesByFilter($ActiveType){
+    if (empty($ActiveType)) {
+        return 'No filter type provided';
+    }
+   
+    $response = Http::get('https://pokeapi.co/api/v2/type/'. $ActiveType);
+
+    if ($response->successful()) {
+        $data = $response->json();  // Convert the response body to an array
+        $pokeUrlByType = collect($data['pokemon'])->pluck('pokemon.name');
+        $pokeIds = $pokeUrlByType->map(function ($pokeUrlByType) {
+        return $this->extractIdFromUrl($pokeUrlByType);
+    })->all();
+    
+    return $pokeIds;
+    
+    
+} else {
+    return "No pokemon type like this!!!!!";
+}
+
+} 
+
+
+// public function fetchPokemonByType($type){
+//     $response = Http::get("{$this->baseUrl}/type/{$type}");
+//     $data = json_decode($response->getBody()->getContents(), true);
+//     return $data['pokemon'] ?? [];
+// }
 
 // =========================== Adding Image And ID To Data ===========================
 protected function addImgAndIdToData($data) {
