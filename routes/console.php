@@ -8,5 +8,5 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 // Schedule::command('app:cache-all-pokemon')->cron('0 0 */90 * *');
-Schedule::command('app:cache-all-pokemon')->everyMinute();
+// schedule::command('app:cache-all-pokemon')->everyMinute();
 
