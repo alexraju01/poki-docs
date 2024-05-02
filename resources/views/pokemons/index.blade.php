@@ -11,16 +11,6 @@
             <input type="text" name="search" class="input-box" placeholder="Search poki..." value="{{ $search }}">
             <button type="submit" class="fas fa-search"></button>
         </div>
-      
-        <div class="filtersByType d-poke-types">
-            @foreach ($listTypes as $type)
-                <!-- Pass the $type variable to a JavaScript function to update the <h2> tag -->
-                <button type="button" class="d-button-{{ $type }}" onclick="updateFilter('{{ ucFirst($type) }}')">{{ ucFirst($type) }}</button>
-            @endforeach
-            <!-- Add a button to clear the filter -->
-            <h2 id="filterTypeHeading">Filter by types:</h2>
-            <button class="d-button-active-tab-color" type="submit" name="filter" value="">Reset</button>
-        </div>
     </form>
     
    
